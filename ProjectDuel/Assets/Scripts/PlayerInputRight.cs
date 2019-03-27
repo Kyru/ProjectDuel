@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))] // Gameobject tiene si o si el componente CharacterController. En caso de que no lo tenga lo crea
-public class PlayerInput : MonoBehaviour
+public class PlayerInputRight : MonoBehaviour
 {
     public float speed = 6.0f;
     public float gravity = -9.8f;
@@ -18,7 +18,7 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float deltaX = Input.GetAxis("Horizontal") * speed; // Las teclas asociadas están en:
+        float deltaX = Input.GetAxis("Vertical2") * speed; // Las teclas asociadas están en:
 
         Vector3 movement = new Vector3(deltaX, 0, 0);
 
