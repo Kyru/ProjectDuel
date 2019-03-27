@@ -1,5 +1,4 @@
 
 
-+ Hacer que los disparos se destruyan cuando salgan del mapa
 + Hacer la barra de vida y disparos
 + Implementar el comportamiento de que se recargue la bala cuando el personaje esta quieto
