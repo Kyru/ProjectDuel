@@ -21,4 +21,11 @@ public class ShootBall : MonoBehaviour
         Destroy(this.gameObject);
     }
     */
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "BulletDestroyer"){
+            Destroy(gameObject);
+        }
+    }
 }
