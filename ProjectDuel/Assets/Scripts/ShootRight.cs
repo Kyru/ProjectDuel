@@ -16,7 +16,7 @@ public class ShootRight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if (Input.GetKeyDown(KeyCode.LeftArrow))
+       if (Input.GetKeyDown(KeyCode.LeftArrow) && !PlayerInputRight.isCharging)
         {
             _ball = Instantiate(ballPrefab) as GameObject;
             _ball.transform.position = transform.TransformPoint(Vector3.forward);

@@ -2,3 +2,15 @@
 
 + Hacer la barra de vida y disparos
 + Implementar el comportamiento de que se recargue la bala cuando el personaje esta quieto
++ Unir las clases de movimiento con una variable que decida sobre que personaje se trabaja personaje seleccionado (?)
+
++ Juntar las clases de PlayerInput y Shoot
+
+
+Si juntamos las dos clases, no hace falta declarar la variable isCharging como public static, ahora mismo esta declarado así 
+porque se necesita en la clase ShootRight para hacer que no dispare el personaje
+
+Añadir dos variables públicas para el tiempo que tiene que pasar para entrar en la animación de carga y el tiempo minimo que te tienes
+que quedar cargando.
+
+Cambiar el nombre del método changeDirection para que represente mejor como va a funcionar

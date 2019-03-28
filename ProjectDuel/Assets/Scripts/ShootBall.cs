@@ -22,6 +22,7 @@ public class ShootBall : MonoBehaviour
     }
     */
 
+    // Cuando la bala choca con un objeto con tag "BulletDestroyer" esta se destruye
     public void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "BulletDestroyer"){
