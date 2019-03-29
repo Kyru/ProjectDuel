@@ -176,6 +176,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shell_Crab Yellow
       objectReference: {fileID: 0}
+    - target: {fileID: 934305216778930713, guid: 327666a7a3000904fbd42e5904cb169a,
+        type: 3}
+      propertyPath: m_TagString
+      value: CrabYellow
+      objectReference: {fileID: 0}
     - target: {fileID: 934305216778589107, guid: 327666a7a3000904fbd42e5904cb169a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -451,6 +456,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shell_Crab Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 934305216778930713, guid: 327666a7a3000904fbd42e5904cb169a,
+        type: 3}
+      propertyPath: m_TagString
+      value: CrabBlue
       objectReference: {fileID: 0}
     - target: {fileID: 934305216778589107, guid: 327666a7a3000904fbd42e5904cb169a,
         type: 3}

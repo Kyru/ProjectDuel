@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 6804125510988536655}
   - component: {fileID: 8770079516517688882}
   m_Layer: 0
-  m_Name: Shoot
-  m_TagString: Untagged
+  m_Name: ShootBlue
+  m_TagString: ShootBlue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3380908921338658948}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b856c47a62a4cdb44b234131a582d559, type: 3}
+  m_Script: {fileID: 11500000, guid: 165a55ba0edfa2a489f2574d4f0fff7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10

@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - BulletDestroyer
+  - CrabYellow
+  - CrabBlue
+  - ShootYellow
+  - ShootBlue
   layers:
   - Default
   - TransparentFX

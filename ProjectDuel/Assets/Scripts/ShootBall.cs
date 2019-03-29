@@ -21,6 +21,7 @@ public class ShootBall : MonoBehaviour
             Destroy(other.gameObject);
         }
         if(other.gameObject.tag=="CrabYellow" && this.gameObject.tag=="ShootBlue"){
+            Debug.Log("Collision detected");
             other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
             Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
             Destroy(this.gameObject);
