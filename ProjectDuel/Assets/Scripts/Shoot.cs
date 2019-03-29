@@ -6,12 +6,13 @@ public class Shoot : MonoBehaviour
 {
     [SerializeField] private GameObject ballPrefab;
     private GameObject _ball;
+    private Animator _animator;
     [SerializeField] private KeyCode keyShoot;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -19,6 +20,8 @@ public class Shoot : MonoBehaviour
     {
         if (Input.GetKeyDown(keyShoot) && this.gameObject.GetComponent<PlayerInput>().get_charge()==1 )
         {
+            _animator.SetTrigger("CrabShoot");
+            _animator.SetBool("Reloading", false);
             _ball = Instantiate(ballPrefab) as GameObject;
             _ball.transform.position = transform.TransformPoint(Vector3.forward * 1.5f);
             _ball.transform.rotation = transform.rotation;
