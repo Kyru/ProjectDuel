@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 6804125510988536655}
   - component: {fileID: 8770079516517688882}
   m_Layer: 0
-  m_Name: Shoot
-  m_TagString: Untagged
+  m_Name: ShootBlue
+  m_TagString: ShootBlue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

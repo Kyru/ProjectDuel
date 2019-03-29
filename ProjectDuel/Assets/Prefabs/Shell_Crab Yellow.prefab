@@ -847,10 +847,11 @@ GameObject:
   - component: {fileID: 6000400626911052464}
   - component: {fileID: 6000400626918805618}
   - component: {fileID: 4637776673990102987}
+  - component: {fileID: 7146957093806937083}
   - component: {fileID: 7769659993959798855}
   m_Layer: 0
   m_Name: Shell_Crab Yellow
-  m_TagString: Untagged
+  m_TagString: CrabYellow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -908,6 +909,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7146957093806937083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6000400626911435546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b906bc26bb3c54c89fc45e47e5356b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
 --- !u!114 &7769659993959798855
 MonoBehaviour:
   m_ObjectHideFlags: 0

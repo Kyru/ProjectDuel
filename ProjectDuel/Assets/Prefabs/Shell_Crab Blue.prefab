@@ -627,7 +627,7 @@ GameObject:
   - component: {fileID: 7721863645832098199}
   m_Layer: 0
   m_Name: Shell_Crab Blue
-  m_TagString: Untagged
+  m_TagString: CrabBlue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
