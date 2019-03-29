@@ -10,22 +10,25 @@ public class ShootBall : MonoBehaviour
     {
         transform.Translate(0, 0, speed * Time.deltaTime);
     }
-    /*
-    private void OnTriggerEnter(Collider other)
-    {
-        PlayerCharacter player = other.GetComponent<PlayerCharacter>();
-        if (player != null)
-        {
-            player.Hurt(damage);
-        }
-        Destroy(this.gameObject);
-    }
-    */
 
     public void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "BulletDestroyer"){
             Destroy(gameObject);
+        }
+        if(this.gameObject.tag == "ShootYellow" && other.gameObject.tag=="ShootBlue"){
+            Destroy(this.gameObject);
+            Destroy(other.gameObject);
+        }
+        if(other.gameObject.tag=="CrabYellow" && this.gameObject.tag=="ShootBlue"){
+            other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
+            Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+            Destroy(this.gameObject);
+        }
+        if(other.gameObject.tag=="CrabBlue" && this.gameObject.tag=="ShootYellow"){
+            other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
+            Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+            Destroy(this.gameObject);
         }
     }
 }

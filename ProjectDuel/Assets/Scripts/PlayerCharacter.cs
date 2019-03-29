@@ -8,7 +8,7 @@ public class PlayerCharacter : MonoBehaviour
 
     public void Hurt(int damage) 
     {
-    	health-= damage;
+    	if(health != 0)health-= damage;
     }
 
     public int get_health(){return health;}
