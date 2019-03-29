@@ -2,3 +2,9 @@
 
 + Hacer la barra de vida y disparos
 + Implementar el comportamiento de que se recargue la bala cuando el personaje esta quieto
+
+-COSAS QUE HEMOS CAMBIADO EN LA ESCENA DE LA BRANCH LOSDAMAGES:
+	
+	->Tags de balas y cangrejos: ShootYellow, ShootBlue, CrabYellow, CrabBlue.
+	->Respectivo a la UI:
+		.Se ha borrado el texto HP, y se han añadido 6 contenedores de corazón, organizados en tres y tres.

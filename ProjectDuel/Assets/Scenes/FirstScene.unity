@@ -141,8 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 482fbef819c517c4683f1486b6fc6d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blue_crab: {fileID: 1427873601}
   blue_hearts: {fileID: 2001970215}
+  yellow_hearts: {fileID: 110511196}
   empty_heart: {fileID: 21300000, guid: 2505e7b8a00124242b36009c9ad32df7, type: 3}
 --- !u!4 &9834873
 Transform:
