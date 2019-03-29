@@ -622,8 +622,9 @@ GameObject:
   m_Component:
   - component: {fileID: 934305216778589107}
   - component: {fileID: 934305216771621233}
-  - component: {fileID: 949536720741430063}
-  - component: {fileID: 7721863645832098199}
+  - component: {fileID: 5567967490015725959}
+  - component: {fileID: 1427873602}
+  - component: {fileID: 1427873603}
   m_Layer: 0
   m_Name: Shell_Crab Blue
   m_TagString: Untagged
@@ -640,7 +641,7 @@ Transform:
   m_GameObject: {fileID: 934305216778930713}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 28.274702, y: 41.388325, z: 46.51473}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.10388, y: 0.10388, z: 0.10388}
   m_Children:
   - {fileID: 934305216778559241}
   - {fileID: 934305216778485685}
@@ -666,8 +667,8 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!143 &949536720741430063
-CharacterController:
+--- !u!65 &5567967490015725959
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -677,14 +678,9 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7721863645832098199
+  m_Size: {x: 10.490191, y: 6.4917693, z: 8.445923}
+  m_Center: {x: -0.38360646, y: 2.7458851, z: 2.0597043}
+--- !u!114 &1427873602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -693,11 +689,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 934305216778930713}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab72518eb42ebdb409becefa7a2d5c16, type: 3}
+  m_Script: {fileID: 11500000, guid: d6a689ad5bb9b7243b05a38bca766b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
   gravity: -9.8
+  keyMovement1: 115
+  keyMovement2: 119
+--- !u!114 &1427873603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934305216778930713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1b32be4555bea2438e8ccc84450b978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballPrefab: {fileID: 3380908921338658948, guid: eb41151884dbc934e81f876073e28243,
+    type: 3}
+  keyShoot: 100
 --- !u!1 &934305216778932025
 GameObject:
   m_ObjectHideFlags: 0
