@@ -623,6 +623,7 @@ GameObject:
   - component: {fileID: 934305216778589107}
   - component: {fileID: 934305216771621233}
   - component: {fileID: 949536720741430063}
+  - component: {fileID: 3709283466499792293}
   - component: {fileID: 7721863645832098199}
   m_Layer: 0
   m_Name: Shell_Crab Blue
@@ -684,6 +685,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3709283466499792293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934305216778930713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b906bc26bb3c54c89fc45e47e5356b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
 --- !u!114 &7721863645832098199
 MonoBehaviour:
   m_ObjectHideFlags: 0
