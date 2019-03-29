@@ -9,12 +9,12 @@ public class PlayerInput : MonoBehaviour
     public float gravity = -9.8f;
     [SerializeField] private KeyCode keyMovement1;
     [SerializeField] private KeyCode keyMovement2;
-
+    private Rigidbody _rigidbody;
 
     // Use this for initialization
     void Start()
     {
-       
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -24,14 +24,19 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKey(keyMovement1))
         {
             Vector3 movement = new Vector3(1 * speed, 0, 0);
-            //movement = transform.TransformDirection(movement);
-            transform.Translate(movement * Time.deltaTime);
-        }
-        if (Input.GetKey(keyMovement2))
+            movement = transform.TransformDirection(movement);
+            //transform.Translate(movement * Time.deltaTime);
+            _rigidbody.velocity = movement;
+        } else if (Input.GetKey(keyMovement2))
         {
             Vector3 movement = new Vector3(-1 * speed, 0, 0);
-            //movement = transform.TransformDirection(movement);
-            transform.Translate(movement * Time.deltaTime);
+            movement = transform.TransformDirection(movement);
+            //transform.Translate(movement * Time.deltaTime);
+            _rigidbody.velocity = movement;
+        }
+        else
+        {
+            _rigidbody.velocity = new Vector3(0f, 0f, 0f);
         }
     }
 }

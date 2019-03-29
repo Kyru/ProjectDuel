@@ -625,6 +625,7 @@ GameObject:
   - component: {fileID: 5567967490015725959}
   - component: {fileID: 1427873602}
   - component: {fileID: 1427873603}
+  - component: {fileID: 1835345308}
   m_Layer: 0
   m_Name: Shell_Crab Blue
   m_TagString: Untagged
@@ -711,6 +712,22 @@ MonoBehaviour:
   ballPrefab: {fileID: 3380908921338658948, guid: eb41151884dbc934e81f876073e28243,
     type: 3}
   keyShoot: 100
+--- !u!54 &1835345308
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934305216778930713}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &934305216778932025
 GameObject:
   m_ObjectHideFlags: 0
