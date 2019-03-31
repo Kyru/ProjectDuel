@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerCharacter : MonoBehaviour
 {
-	[SerializeField] private int health;    
+	[SerializeField] private int health;
+    // id must be BLUE or YELLOW
+    [SerializeField] private string id;
 
     public void Hurt(int damage) 
     {
@@ -12,4 +14,20 @@ public class PlayerCharacter : MonoBehaviour
     }
 
     public int get_health(){return health;}
+
+    public void Update()
+    {
+        if(health == 0)
+        {
+            if(id == "BLUE")
+            {
+                Messenger.Broadcast(GameEvent.BLUE_DIES);
+            }
+            else
+            {
+                Messenger.Broadcast(GameEvent.YELLOW_DIES);
+            }
+            Destroy(this.gameObject);
+        }
+    }
 }
