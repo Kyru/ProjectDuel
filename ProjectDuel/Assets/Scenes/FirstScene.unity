@@ -1386,6 +1386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   id: BLUE
+  enemy_scrub: {fileID: 1662864900}
 --- !u!4 &952972453 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 934305216778589107, guid: 327666a7a3000904fbd42e5904cb169a,
@@ -2444,6 +2445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   id: YELLOW
+  enemy_scrub: {fileID: 952972446}
 --- !u!4 &1662864907 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 934305216778589107, guid: 327666a7a3000904fbd42e5904cb169a,

@@ -74,6 +74,13 @@ public class UIController : MonoBehaviour
 
     public void restart()
     {
+        Messenger<int>.RemoveListener(GameEvent.BLUE_HURT, blue_remove_heart);
+        Messenger<int>.RemoveListener(GameEvent.YELLOW_HURT, yellow_remove_heart);
+        Messenger<double>.RemoveListener(GameEvent.BLUE_BAR, Blue_charge);
+        Messenger<double>.RemoveListener(GameEvent.YELLOW_BAR, Yellow_charge);
+        Messenger.RemoveListener(GameEvent.BLUE_DIES, Yellow_wins);
+        Messenger.RemoveListener(GameEvent.YELLOW_DIES, Blue_wins);
         SceneManager.LoadScene("FirstScene");
     }
+
 }

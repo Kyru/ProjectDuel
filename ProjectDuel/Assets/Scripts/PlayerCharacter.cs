@@ -7,6 +7,8 @@ public class PlayerCharacter : MonoBehaviour
 	[SerializeField] private int health;
     // id must be BLUE or YELLOW
     [SerializeField] private string id;
+    [SerializeField] private GameObject enemy_scrub;
+    
 
     public void Hurt(int damage) 
     {
@@ -28,6 +30,7 @@ public class PlayerCharacter : MonoBehaviour
                 Messenger.Broadcast(GameEvent.YELLOW_DIES);
             }
             Destroy(this.gameObject);
+            Destroy(enemy_scrub.gameObject);
         }
     }
 }
