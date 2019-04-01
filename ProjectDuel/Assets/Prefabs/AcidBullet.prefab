@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6804125510988536655}
   - component: {fileID: 8770079516517688882}
   m_Layer: 0
-  m_Name: AcidBullet
+  m_Name: ShootYellow - Copy
   m_TagString: AcidBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

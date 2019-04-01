@@ -13,7 +13,7 @@ public class ShootBall : MonoBehaviour
         transform.Translate(0, 0, speed * Time.deltaTime);
 
     }
-    
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "BulletDestroyer")
@@ -35,6 +35,18 @@ public class ShootBall : MonoBehaviour
         {
             other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
             Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+            Destroy(this.gameObject);
+        }
+        if (other.gameObject.tag == "CrabBlue" && this.gameObject.tag == "AcidBullet")
+        {
+            other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
+            Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+            Destroy(this.gameObject);
+        }
+        if (other.gameObject.tag == "CrabYellow" && this.gameObject.tag == "AcidBullet")
+        {
+            other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
+            Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
             Destroy(this.gameObject);
         }
     }

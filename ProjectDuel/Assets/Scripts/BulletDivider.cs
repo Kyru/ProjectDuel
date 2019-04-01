@@ -11,6 +11,7 @@ public class BulletDivider : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        Debug.Log("llego aqui");
         if (isTriggered == false)
         {
             if (other.gameObject.tag == "ShootYellow")
@@ -47,6 +48,7 @@ public class BulletDivider : MonoBehaviour
             }
             if (other.gameObject.tag == "AcidBullet")
             {
+                Debug.Log("llego aqui - Acid bullet");
                 float random = Random.Range(0f, 1f);
                 if (random > 0.5f)
                 {
