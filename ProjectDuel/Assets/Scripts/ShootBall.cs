@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShootBall : MonoBehaviour
 {
+
     public float speed = 10.0f;
     public int damage = 1;
     void Update()

@@ -9,6 +9,8 @@ TagManager:
   - CrabBlue
   - ShootYellow
   - ShootBlue
+  - chestRight
+  - chestLeft
   layers:
   - Default
   - TransparentFX
