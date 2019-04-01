@@ -61,6 +61,7 @@ public class Obstacle_Generator : MonoBehaviour
     	Vector3 auxV;
     	float ranDifX,ranDifZ;
     	int sumrest;
+        int ranNum;
 
     	for(int z=0; z < iniObjects; z++)
     	{
@@ -76,7 +77,21 @@ public class Obstacle_Generator : MonoBehaviour
     			}
     		}
 
-    		ranObject=Random.Range(0,obstacles.Length);
+            // Si no se inicializa la variable a algún valor fuera de un if tira error
+            ranObject = 0;
+
+            // Simular probabilidad
+            ranNum = Random.Range(0, 100);
+
+            // Aqui con ifs se decide la probabilidad de cada objeto
+            if(ranNum < 20)
+            {
+                ranObject = 1;
+            }
+            if(ranNum > 20)
+            {
+                ranObject = 0;
+            }
 
     		auxV=posObstacles[ranRow,ranCol];
 
