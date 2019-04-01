@@ -25,6 +25,16 @@ public class ShootBall : MonoBehaviour
             Destroy(this.gameObject);
             Destroy(other.gameObject);
         }
+        if (this.gameObject.tag == "ShootYellow" && other.gameObject.tag == "AcidBullet")
+        {
+            Destroy(this.gameObject);
+            Destroy(other.gameObject);
+        }
+        if (this.gameObject.tag == "ShootBlue" && other.gameObject.tag == "AcidBullet")
+        {
+            Destroy(this.gameObject);
+            Destroy(other.gameObject);
+        }
         if (other.gameObject.tag == "CrabYellow" && this.gameObject.tag == "ShootBlue")
         {
             other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
