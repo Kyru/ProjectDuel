@@ -20,9 +20,12 @@ public class Obstacle_Generator : MonoBehaviour
     private Vector3 [,] posObstacles;
     private bool [,] occupiedPos;
     private int maxObjects, iniObjects;
+    private int numObjects;
+    private bool inuse = false;
 
     void Start()
     {
+    	numObjects=0;
     	//Inicialización del array de Obstáculos
     	obstacles = Resources.LoadAll<GameObject> ("Obstacles");
 
@@ -54,19 +57,36 @@ public class Obstacle_Generator : MonoBehaviour
     		Zaux+=difZ;
     	}
 
+    	
+    	for(int z=0; z < iniObjects; z++)
+    	{
+    		instantiateObstacles();
+       	}
+    }
+
+    void Update()
+    {
+        if(numObjects < maxObjects && !inuse)
+        {
+        	StartCoroutine(waitInstance());
+        }
+    }
+
+    void instantiateObstacles()
+    {
     	//Instanciando los objetos iniciales
-    	int ranCol;
-    	int ranRow;
+    	int ranCol=-1;
+    	int ranRow=-1;
     	int ranObject;
     	Vector3 auxV;
     	float ranDifX,ranDifZ;
     	int sumrest;
         int ranNum;
-
-    	for(int z=0; z < iniObjects; z++)
-    	{
-    		while(true)
+        int i=0;
+        
+    	while(i < 2000)
     		{
+
     			ranRow = Random.Range(0,numRows);
     			ranCol = Random.Range(0,numCols);
 
@@ -75,9 +95,11 @@ public class Obstacle_Generator : MonoBehaviour
     				occupiedPos[ranRow,ranCol]=true;
     				break;
     			}
+    			i++;
     		}
 
-            // Si no se inicializa la variable a algún valor fuera de un if tira error
+    		
+    		// Si no se inicializa la variable a algún valor fuera de un if tira error
             ranObject = 0;
 
             // Simular probabilidad
@@ -86,11 +108,11 @@ public class Obstacle_Generator : MonoBehaviour
             // Aqui con ifs se decide la probabilidad de cada objeto
             if(ranNum < 20)
             {
-                ranObject = 1;
+               	ranObject = 1;
             }
             if(ranNum > 20)
             {
-                ranObject = 0;
+               	ranObject = 0;
             }
 
     		auxV=posObstacles[ranRow,ranCol];
@@ -105,12 +127,23 @@ public class Obstacle_Generator : MonoBehaviour
     		if(sumrest==1){auxV.z+=ranDifZ;}
     		else{auxV.z-=ranDifZ;}
 
-    		Instantiate(obstacles[ranObject].transform,auxV, Quaternion.identity);
-       	}
+    		if(ranCol!=-1)
+    		{
+    			Instantiate(obstacles[ranObject].transform,auxV, Quaternion.identity);
+    			numObjects+=1;
+    		}
+    		
+    		
+
+            
     }
 
-    void Update()
+    IEnumerator waitInstance()
     {
-        
-    }
+    	inuse=true;
+    	int rantime=Random.Range(3,8);
+    	yield return new WaitForSeconds(rantime);
+        instantiateObstacles();
+        inuse=false;
+    } 
 }
