@@ -13,6 +13,9 @@ public class Obstacle_Generator : MonoBehaviour
 	[SerializeField] private float maxZ;
 	[SerializeField] private int numCols;
 	[SerializeField] private int numRows;
+	[SerializeField] private float randomSumRest;
+	[SerializeField] private GameObject rightChest;
+	[SerializeField] private GameObject leftChest;
 
 	private GameObject[] obstacles;
     private float difX;
@@ -31,7 +34,7 @@ public class Obstacle_Generator : MonoBehaviour
 
     	//Número máximo de objetos y número inicial de objetos
     	maxObjects=numCols*numRows;
-    	iniObjects=(int)Mathf.Floor((float)0.65*maxObjects);
+    	iniObjects=(int)Mathf.Floor((float)0.5*maxObjects);
     	
     	//Inicialización de la matriz a las posiciones establecidas
     	difX = (maxX-minX)/numCols;
@@ -49,24 +52,31 @@ public class Obstacle_Generator : MonoBehaviour
 
     		for(int j=0; j < numCols; j++)
     		{
-    			posObstacles[i,j] = new Vector3(Xaux,-59.5f,Zaux);
+    			posObstacles[i,j] = new Vector3(Xaux,-40f,Zaux);
     			occupiedPos[i,j] = false;
     			Xaux+=difX;
     		}
 
     		Zaux+=difZ;
     	}
-
     	
     	for(int z=0; z < iniObjects; z++)
     	{
-    		instantiateObstacles();
+    		if(z==0)
+    		{
+    			instantiateChest(true);
+    		}
+    		else if(z==1)
+    		{
+    			instantiateChest(false);
+    		}
+    		else{instantiateObstacles();}
        	}
     }
 
     void Update()
     {
-        if(numObjects < maxObjects && !inuse)
+        if(numObjects < iniObjects && !inuse)
         {
         	StartCoroutine(waitInstance());
         }
@@ -105,37 +115,101 @@ public class Obstacle_Generator : MonoBehaviour
             // Simular probabilidad
             ranNum = Random.Range(0, 100);
 
-            // Aqui con ifs se decide la probabilidad de cada objeto
-            if(ranNum < 20)
+            // Aqui con ifs se decide la probabilidad de cada objet
+            auxV=posObstacles[ranRow,ranCol];
+
+            if(ranNum > 40)
             {
                	ranObject = 1;
+               	auxV.y=-61.38f;
             }
-            if(ranNum > 20)
+            if(ranNum <= 40)
             {
                	ranObject = 0;
+               	auxV.y=-59.864f;
             }
 
-    		auxV=posObstacles[ranRow,ranCol];
 
-    		ranDifX=Random.Range(0f,1f);
+    		ranDifX=Random.Range(0f,randomSumRest);
     		sumrest=Random.Range(0,2);
     		if(sumrest==1){auxV.x+=ranDifX;}
     		else{auxV.x-=ranDifX;}
 
-    		ranDifZ=Random.Range(0f,1f);
+    		ranDifZ=Random.Range(0f,randomSumRest);
     		sumrest=Random.Range(0,2);
     		if(sumrest==1){auxV.z+=ranDifZ;}
     		else{auxV.z-=ranDifZ;}
 
     		if(ranCol!=-1)
     		{
-    			Instantiate(obstacles[ranObject].transform,auxV, Quaternion.identity);
+    			Instantiate(obstacles[ranObject].transform,auxV, obstacles[ranObject].transform.rotation);
     			numObjects+=1;
     		}
     		
     		
 
             
+    }
+
+    void instantiateChest(bool right)
+    {
+    	int ranRow = Random.Range(0,numRows);
+    	Vector3 auxV;
+    	float ranDifX,ranDifZ;
+    	int sumrest;
+
+    	
+    	if(right)
+    	{
+    		int ranCol=numCols-1;
+    		auxV=posObstacles[ranRow,ranCol];
+    		auxV.y=-60f;
+    		occupiedPos[ranRow,ranCol]=true;
+
+    		ranDifX=Random.Range(0f,randomSumRest);
+    		sumrest=Random.Range(0,2);
+    		if(sumrest==1){auxV.x+=ranDifX;}
+    		else{auxV.x-=ranDifX;}
+
+    		ranDifZ=Random.Range(0f,randomSumRest);
+    		sumrest=Random.Range(0,2);
+    		if(sumrest==1){auxV.z+=ranDifZ;}
+    		else{auxV.z-=ranDifZ;}
+
+    		rightChest.transform.position=auxV;
+
+    		if(ranCol!=-1)
+    		{
+    			Instantiate(rightChest.transform,auxV, rightChest.transform.rotation);
+    			numObjects+=1;
+    		}
+    	}
+    	else
+    	{
+    		int ranCol=0;
+    		auxV=posObstacles[ranRow,ranCol];
+    		auxV.y=-60f;
+
+    		occupiedPos[ranRow,ranCol]=true;
+
+    		ranDifX=Random.Range(0f,randomSumRest);
+    		sumrest=Random.Range(0,2);
+    		if(sumrest==1){auxV.x+=ranDifX;}
+    		else{auxV.x-=ranDifX;}
+
+    		ranDifZ=Random.Range(0f,randomSumRest);
+    		sumrest=Random.Range(0,2);
+    		if(sumrest==1){auxV.z+=ranDifZ;}
+    		else{auxV.z-=ranDifZ;}
+    		
+    		leftChest.transform.position=auxV;
+
+    		if(ranCol!=-1)
+    		{
+    			Instantiate(leftChest.transform,auxV, leftChest.transform.rotation);
+    			numObjects+=1;
+    		}
+    	}
     }
 
     IEnumerator waitInstance()
