@@ -38,6 +38,7 @@ public class BulletSpinner : MonoBehaviour
             }
         }
         isTriggered = true;
+
     }
     public void OnTriggerExit(Collider other)
     {
