@@ -18,7 +18,8 @@ public class Shoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(keyShoot) && this.gameObject.GetComponent<PlayerInput>().get_charge()==1 )
+        if (Input.GetKeyDown(keyShoot) && this.gameObject.GetComponent<PlayerInput>().get_charge()==1 
+            && !GetComponent<PlayerInput>().getBeingHit())
         {
             _animator.SetTrigger("CrabShoot");
             _animator.SetBool("Reloading", false);

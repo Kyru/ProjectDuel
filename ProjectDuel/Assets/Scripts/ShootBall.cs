@@ -20,42 +20,50 @@ public class ShootBall : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (this.gameObject.tag == "ShootYellow" && other.gameObject.tag == "ShootBlue")
+        else if (this.gameObject.tag == "ShootYellow" && other.gameObject.tag == "ShootBlue")
         {
             Destroy(this.gameObject);
             Destroy(other.gameObject);
         }
-        if (this.gameObject.tag == "ShootYellow" && other.gameObject.tag == "AcidBullet")
+        else if (this.gameObject.tag == "ShootYellow" && other.gameObject.tag == "AcidBullet")
         {
             Destroy(this.gameObject);
             Destroy(other.gameObject);
         }
-        if (this.gameObject.tag == "ShootBlue" && other.gameObject.tag == "AcidBullet")
+        else if (this.gameObject.tag == "ShootBlue" && other.gameObject.tag == "AcidBullet")
         {
             Destroy(this.gameObject);
             Destroy(other.gameObject);
         }
-        if (other.gameObject.tag == "CrabYellow" && this.gameObject.tag == "ShootBlue")
+        else if (other.gameObject.tag == "CrabYellow" && this.gameObject.tag == "ShootBlue")
         {
             other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
+            other.gameObject.GetComponent<Animator>().SetTrigger("CrabHit");
+            other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
             Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
             Destroy(this.gameObject);
         }
-        if (other.gameObject.tag == "CrabBlue" && this.gameObject.tag == "ShootYellow")
+        else if (other.gameObject.tag == "CrabBlue" && this.gameObject.tag == "ShootYellow")
         {
             other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
+            other.gameObject.GetComponent<Animator>().SetTrigger("CrabHit");
+            other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
             Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
             Destroy(this.gameObject);
         }
-        if (other.gameObject.tag == "CrabBlue" && this.gameObject.tag == "AcidBullet")
+        else if (other.gameObject.tag == "CrabBlue" && this.gameObject.tag == "AcidBullet")
         {
             other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
+            other.gameObject.GetComponent<Animator>().SetTrigger("CrabHit");
+            other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
             Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
             Destroy(this.gameObject);
         }
-        if (other.gameObject.tag == "CrabYellow" && this.gameObject.tag == "AcidBullet")
+        else if (other.gameObject.tag == "CrabYellow" && this.gameObject.tag == "AcidBullet")
         {
             other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
+            other.gameObject.GetComponent<Animator>().SetTrigger("CrabHit");
+            other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
             Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
             Destroy(this.gameObject);
         }
