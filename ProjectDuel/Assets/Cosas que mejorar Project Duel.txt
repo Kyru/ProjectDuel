@@ -1,0 +1,32 @@
+
+Experimento 0.1:
+
+- Inercia que siga a la posición del movimiento (si vas hacia abajo y disparas que la bala salga un poco hacia abajo)
+- Mejor generación (barril delante de cofre)
+- Caracoles más lento y balas más rápidas
+- Balas no puntuan bien
+- Darle al cofre de lado, destruye la bala
+- Partidas más rápidas (ponerle un temporizador)
+- Balas más pequeñas (?)
+
+Experimento 0.2:
+
+- Tiempo
+- Que los objetos se vayan cambiando
+- Muerte subita que no tengas que recargar (cuando se acabe el tiempo y tengais las mismas vidas)
+
+
+
+- Lento
+- Power-ups para tener 2 balas
+
+- Feedback de que tienes bala
+- Escena con título y objetivo u al principio del juego con musica y objetivo
+- Empezar con mas balas al inicio
+- Nivel de dificultad
+- Posición de cofres se trasladen
+
+ - Rotar las plantas para que parezca que pueda girar aleatoriamente
+
+ - Objetos estáticos + objetos dinámicos que se muevan y su comportamiento sea más random
+ - Colisiones de las balas ácidas con los cofres
