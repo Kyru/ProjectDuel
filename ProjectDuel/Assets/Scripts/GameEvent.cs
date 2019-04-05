@@ -11,4 +11,6 @@ public class GameEvent : MonoBehaviour
    public const string YELLOW_DIES = "YELLOW_DIES";
    public const string BLUE_DIES = "BLUE_DIES";
    public const string OBSTACLE_BULLET = "OBSTACLE_BULLET";
+   public const string ROW_COL_OC = "ROW_COL_OC";
+
 }

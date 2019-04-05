@@ -17,7 +17,7 @@ public class Obstacle_Generator : MonoBehaviour
 	[SerializeField] private GameObject rightChest;
 	[SerializeField] private GameObject leftChest;
 
-	private GameObject[] obstacles;
+	public GameObject[] obstacles;
     private float difX;
     private float difZ;
     private Vector3 [,] posObstacles;
@@ -26,11 +26,15 @@ public class Obstacle_Generator : MonoBehaviour
     private int numObjects;
     private bool inuse = false;
 
+
     void Start()
     {
+		Messenger<int,int>.AddListener(GameEvent.ROW_COL_OC, changeMatBool);
+
+
     	numObjects=0;
     	//Inicialización del array de Obstáculos
-    	obstacles = Resources.LoadAll<GameObject> ("Obstacles");
+    	//obstacles = Resources.LoadAll<GameObject> ("Obstacles");
 
     	//Número máximo de objetos y número inicial de objetos
     	maxObjects=numCols*numRows;
@@ -76,10 +80,10 @@ public class Obstacle_Generator : MonoBehaviour
 
     void Update()
     {
-        if(numObjects < iniObjects && !inuse)
+        /*if(numObjects < iniObjects && !inuse)
         {
         	StartCoroutine(waitInstance());
-        }
+        }*/
     }
 
     void instantiateObstacles()
@@ -93,6 +97,7 @@ public class Obstacle_Generator : MonoBehaviour
     	int sumrest;
         int ranNum;
         int i=0;
+        GameObject instancia;
         
     	while(i < 2000)
     		{
@@ -142,7 +147,19 @@ public class Obstacle_Generator : MonoBehaviour
 
     		if(ranCol!=-1)
     		{
-    			Instantiate(obstacles[ranObject].transform,auxV, obstacles[ranObject].transform.rotation);
+    			
+    			instancia=Instantiate<GameObject>(obstacles[ranObject],auxV, obstacles[ranObject].transform.rotation);
+
+    			if(ranNum <= 40)
+    			{
+    				instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setRow(ranRow);
+    				instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setCol(ranCol);
+    			}
+    			else
+    			{
+    				instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setRow(ranRow);
+    				instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setCol(ranCol);
+    			}
     			numObjects+=1;
     		}
     		
@@ -212,12 +229,19 @@ public class Obstacle_Generator : MonoBehaviour
     	}
     }
 
+    private void changeMatBool(int row, int col)
+    {
+    	occupiedPos[row,col]=false;
+    	numObjects-=1;
+    	StartCoroutine(waitInstance());
+    }
+
     IEnumerator waitInstance()
     {
-    	inuse=true;
-    	int rantime=Random.Range(3,8);
+    	//inuse=true;
+    	int rantime=Random.Range(2,4);
     	yield return new WaitForSeconds(rantime);
         instantiateObstacles();
-        inuse=false;
+        //inuse=false;
     } 
 }

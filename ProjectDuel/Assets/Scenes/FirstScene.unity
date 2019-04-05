@@ -186,6 +186,9 @@ MonoBehaviour:
     type: 3}
   leftChest: {fileID: 7051821617788903550, guid: dde1f37342e974b4e81198d32fcef0be,
     type: 3}
+  obstacles:
+  - {fileID: 2996852622200528450, guid: b3737a9eb89ea0d4c88f69233e466616, type: 3}
+  - {fileID: 5674928949364027888, guid: 489854301bb80fb41a4d160b6f3a0c42, type: 3}
 --- !u!1001 &21417505
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1470,6 +1473,10 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 32
       objectReference: {fileID: 0}
+    - target: {fileID: 1835345308, guid: 327666a7a3000904fbd42e5904cb169a, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 327666a7a3000904fbd42e5904cb169a, type: 3}
 --- !u!1001 &717148981
@@ -2649,6 +2656,10 @@ PrefabInstance:
     - target: {fileID: 1835345308, guid: 327666a7a3000904fbd42e5904cb169a, type: 3}
       propertyPath: m_Constraints
       value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 1835345308, guid: 327666a7a3000904fbd42e5904cb169a, type: 3}
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 934305216771621233, guid: 327666a7a3000904fbd42e5904cb169a,
         type: 3}

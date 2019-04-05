@@ -8,6 +8,14 @@ public class BulletSpinner : MonoBehaviour
     [SerializeField] private GameObject shootYellow;
     [SerializeField] private GameObject acidBullet;
     private bool isTriggered = false;
+    private int row,col;
+
+    public void setRow(int r){row=r;}
+    public void setCol(int c){col=c;}
+
+    public int getRow(){return row;}
+    public int getCol(){return col;}
+
     public void OnTriggerEnter(Collider other)
     {
         if (isTriggered == false)
@@ -38,7 +46,8 @@ public class BulletSpinner : MonoBehaviour
             }
         }
         isTriggered = true;
-
+        Destroy(this.gameObject);
+        Messenger<int,int>.Broadcast(GameEvent.ROW_COL_OC,row,col);
     }
     public void OnTriggerExit(Collider other)
     {
