@@ -11,6 +11,8 @@ TagManager:
   - ShootBlue
   - chestRight
   - chestLeft
+  - AcidBullet
+  - GarbageWall
   layers:
   - Default
   - TransparentFX
