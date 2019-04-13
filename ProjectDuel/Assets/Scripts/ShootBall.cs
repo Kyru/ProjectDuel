@@ -8,10 +8,18 @@ public class ShootBall : MonoBehaviour
     public float speed = 10.0f;
     public int damage = 1;
     private bool _obstacleBullet;
+    public Vector3 worldDirection;
+    public Vector3 movement;
+
+    void Start()
+    {
+        movement = Vector3.Normalize(Vector3.left + Vector3.forward);
+        worldDirection = transform.TransformDirection(movement);
+    }
+
     void Update()
     {
-        transform.Translate(0, 0, speed * Time.deltaTime);
-
+        transform.Translate(worldDirection * speed * Time.deltaTime, Space.World);
     }
 
     public void OnTriggerEnter(Collider other)
@@ -66,6 +74,15 @@ public class ShootBall : MonoBehaviour
             other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
             Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
             Destroy(this.gameObject);
+        }
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "wall")
+        {
+            Debug.Log("Llego a entrar en una colisión");
+            worldDirection = Vector3.Reflect(worldDirection, collision.contacts[0].normal);
+            worldDirection.y = 0.0f;
         }
     }
 }

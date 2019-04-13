@@ -17,7 +17,8 @@ public class Obstacle_Generator : MonoBehaviour
 	[SerializeField] private GameObject rightChest;
 	[SerializeField] private GameObject leftChest;
 
-	public GameObject[] obstacles;
+    private int[] numObjRow;
+    public GameObject[] obstacles;
     private float difX;
     private float difZ;
     private Vector3 [,] posObstacles;
@@ -36,15 +37,18 @@ public class Obstacle_Generator : MonoBehaviour
     	//Inicialización del array de Obstáculos
     	//obstacles = Resources.LoadAll<GameObject> ("Obstacles");
 
-    	//Número máximo de objetos y número inicial de objetos
-    	maxObjects=numCols*numRows;
-    	iniObjects=(int)Mathf.Floor((float)0.5*maxObjects);
-    	
-    	//Inicialización de la matriz a las posiciones establecidas
-    	difX = (maxX-minX)/numCols;
+    	// Número máximo de objetos y número inicial de objetos
+        // Máximo 2 objetos por fila
+    	maxObjects=2*numRows;
+        //iniObjects=(int)Mathf.Floor((float)0.5*maxObjects);
+        iniObjects = 2 * numRows;
+
+        //Inicialización de la matriz a las posiciones establecidas
+        difX = (maxX-minX)/numCols;
     	difZ = (maxZ-minZ)/numRows;
 
-    	posObstacles=new Vector3[numRows,numCols];
+        numObjRow = new int[numRows];
+        posObstacles =new Vector3[numRows,numCols];
     	occupiedPos=new bool[numRows,numCols];
 
     	float Xaux;
@@ -105,15 +109,16 @@ public class Obstacle_Generator : MonoBehaviour
     			ranRow = Random.Range(0,numRows);
     			ranCol = Random.Range(0,numCols);
 
-    			if(!occupiedPos[ranRow,ranCol])
+    			if(!occupiedPos[ranRow,ranCol] && numObjRow[ranRow] <= 1)
     			{
-    				occupiedPos[ranRow,ranCol]=true;
+                    numObjRow[ranRow] += 1;
+                    occupiedPos[ranRow,ranCol]=true;
     				break;
     			}
     			i++;
     		}
 
-    		
+
     		// Si no se inicializa la variable a algún valor fuera de un if tira error
             ranObject = 0;
 
@@ -134,36 +139,36 @@ public class Obstacle_Generator : MonoBehaviour
                	auxV.y=-59.864f;
             }
 
+        if(i!=2000) {
+            ranDifX = Random.Range(0f, randomSumRest);
+            sumrest = Random.Range(0, 2);
+            if (sumrest == 1) { auxV.x += ranDifX; }
+            else { auxV.x -= ranDifX; }
 
-    		ranDifX=Random.Range(0f,randomSumRest);
-    		sumrest=Random.Range(0,2);
-    		if(sumrest==1){auxV.x+=ranDifX;}
-    		else{auxV.x-=ranDifX;}
+            ranDifZ = Random.Range(0f, randomSumRest);
+            sumrest = Random.Range(0, 2);
+            if (sumrest == 1) { auxV.z += ranDifZ; }
+            else { auxV.z -= ranDifZ; }
 
-    		ranDifZ=Random.Range(0f,randomSumRest);
-    		sumrest=Random.Range(0,2);
-    		if(sumrest==1){auxV.z+=ranDifZ;}
-    		else{auxV.z-=ranDifZ;}
+            if (ranCol != -1)
+            {
 
-    		if(ranCol!=-1)
-    		{
-    			
-    			instancia=Instantiate<GameObject>(obstacles[ranObject],auxV, obstacles[ranObject].transform.rotation);
+                instancia = Instantiate<GameObject>(obstacles[ranObject], auxV, obstacles[ranObject].transform.rotation);
 
-    			if(ranNum <= 40)
-    			{
-    				instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setRow(ranRow);
-    				instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setCol(ranCol);
-    			}
-    			else
-    			{
-    				instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setRow(ranRow);
-    				instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setCol(ranCol);
-    			}
-    			numObjects+=1;
-    		}
-    		
-    		
+                if (ranNum <= 40)
+                {
+                    instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setRow(ranRow);
+                    instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setCol(ranCol);
+                }
+                else
+                {
+                    instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setRow(ranRow);
+                    instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setCol(ranCol);
+                }
+                numObjects += 1;
+            }
+
+        }	
 
             
     }
@@ -174,9 +179,9 @@ public class Obstacle_Generator : MonoBehaviour
     	Vector3 auxV;
     	float ranDifX,ranDifZ;
     	int sumrest;
+        numObjRow[ranRow] += 1;
 
-    	
-    	if(right)
+        if (right)
     	{
     		int ranCol=numCols-1;
     		auxV=posObstacles[ranRow,ranCol];

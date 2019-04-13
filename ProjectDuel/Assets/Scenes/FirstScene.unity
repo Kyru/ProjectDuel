@@ -2243,6 +2243,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GarbageWall
       objectReference: {fileID: 0}
+    - target: {fileID: 3254768260006308208, guid: d76f367fda0ea45628a017b69cba6fc4,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     - target: {fileID: 3254768260006308211, guid: d76f367fda0ea45628a017b69cba6fc4,
         type: 3}
       propertyPath: m_LocalPosition.x
