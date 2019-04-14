@@ -13,8 +13,8 @@ public class ShootBall : MonoBehaviour
 
     void Start()
     {
-        movement = Vector3.Normalize(Vector3.left + Vector3.forward);
-        worldDirection = transform.TransformDirection(movement);
+        //movement = Vector3.Normalize(Vector3.left + Vector3.forward);
+        worldDirection = transform.TransformDirection(Vector3.forward);
     }
 
     void Update()
@@ -83,6 +83,10 @@ public class ShootBall : MonoBehaviour
             Debug.Log("Llego a entrar en una colisión");
             worldDirection = Vector3.Reflect(worldDirection, collision.contacts[0].normal);
             worldDirection.y = 0.0f;
+        }
+        if (collision.gameObject.tag == "BulletDestroyer")
+        {
+            Destroy(this.gameObject);
         }
     }
 }

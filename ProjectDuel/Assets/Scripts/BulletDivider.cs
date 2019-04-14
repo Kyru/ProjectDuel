@@ -21,6 +21,7 @@ public class BulletDivider : MonoBehaviour
     {
         if (isTriggered == false)
         {
+
             if (other.gameObject.tag == "ShootYellow")
             {
                 Destroy(other.gameObject);
@@ -73,11 +74,11 @@ public class BulletDivider : MonoBehaviour
                         Quaternion.Inverse(this.gameObject.transform.parent.transform.rotation), this.gameObject.transform.parent.transform);
                 }
             }
+            Messenger<int, int>.Broadcast(GameEvent.ROW_COL_OC, row, col);
         }
         isTriggered = true;
         Destroy(this.gameObject);
-        Messenger<int,int>.Broadcast(GameEvent.ROW_COL_OC,row,col);
-
+        print("broadcast");
     }
 
     public void OnTriggerExit(Collider other)

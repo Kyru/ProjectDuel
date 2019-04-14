@@ -26,7 +26,8 @@ public class Obstacle_Generator : MonoBehaviour
     private int maxObjects, iniObjects;
     private int numObjects;
     private bool inuse = false;
-
+   
+    //private int[] numObject;
 
     void Start()
     {
@@ -117,28 +118,27 @@ public class Obstacle_Generator : MonoBehaviour
     			}
     			i++;
     		}
-
-
-    		// Si no se inicializa la variable a algún valor fuera de un if tira error
+        
+            // Si no se inicializa la variable a algún valor fuera de un if tira error
             ranObject = 0;
 
             // Simular probabilidad
             ranNum = Random.Range(0, 100);
 
             // Aqui con ifs se decide la probabilidad de cada objet
-            auxV=posObstacles[ranRow,ranCol];
+            auxV = posObstacles[ranRow, ranCol];
 
-            if(ranNum > 40)
+            if (ranNum > 40)
             {
-               	ranObject = 1;
-               	auxV.y=-61.38f;
+                ranObject = 1;
+                auxV.y = -61.38f;
             }
-            if(ranNum <= 40)
+            if (ranNum <= 40)
             {
-               	ranObject = 0;
-               	auxV.y=-59.864f;
+                ranObject = 0;
+                auxV.y = -59.864f;
             }
-
+        
         if(i!=2000) {
             ranDifX = Random.Range(0f, randomSumRest);
             sumrest = Random.Range(0, 2);
@@ -236,7 +236,8 @@ public class Obstacle_Generator : MonoBehaviour
 
     private void changeMatBool(int row, int col)
     {
-    	occupiedPos[row,col]=false;
+        numObjRow[row] -= 1; 
+        occupiedPos[row,col]=false;
     	numObjects-=1;
     	StartCoroutine(waitInstance());
     }
