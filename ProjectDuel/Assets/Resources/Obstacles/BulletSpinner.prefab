@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 5674928949364027891}
   m_Layer: 0
   m_Name: BulletSpinner
-  m_TagString: Untagged
+  m_TagString: BulletSpinner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,6 +73,10 @@ PrefabInstance:
     - target: {fileID: 947531105, guid: ec317126b52a6564193525f703052a23, type: 3}
       propertyPath: m_Name
       value: EnemyPlant3Enviromental
+      objectReference: {fileID: 0}
+    - target: {fileID: 947531105, guid: ec317126b52a6564193525f703052a23, type: 3}
+      propertyPath: m_TagString
+      value: BulletSpinner
       objectReference: {fileID: 0}
     - target: {fileID: 190447321, guid: ec317126b52a6564193525f703052a23, type: 3}
       propertyPath: m_LocalPosition.x
