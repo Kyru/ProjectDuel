@@ -41,6 +41,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    // Espera un poco antes de morir, para que salga la animación completa
     IEnumerator EnemyDeath()
     {
         yield return new WaitForSeconds(0.3f);

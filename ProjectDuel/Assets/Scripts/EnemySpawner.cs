@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject enemy;
+    [SerializeField] private GameObject alert;
+    private GameObject tempAlert;
     private List<GameObject> spawnPositions;
     private bool spawnNext;
     public string exitTowards; // right or left
@@ -35,19 +37,36 @@ public class EnemySpawner : MonoBehaviour
             spawnNext = false;
             int randomSeconds = Random.Range(minSeconds, maxSeconds);
             yield return new WaitForSeconds(randomSeconds);
+
             int randomPosition = Random.Range(0, 5);
+
             Instantiate(enemy, spawnPositions[randomPosition].transform.position, enemy.transform.rotation, gameObject.transform);
+            tempAlert = Instantiate(alert, spawnPositions[randomPosition].transform.position + new Vector3(10f, 1f, 0),
+                alert.transform.rotation, gameObject.transform);
+            StartCoroutine("DestroyTempAlert");
+
             spawnNext = true;
         }
         else if (exitTowards == "right")
         {
-            spawnNext = false;  
+            spawnNext = false;
             int randomSeconds = Random.Range(minSeconds, maxSeconds);
             yield return new WaitForSeconds(randomSeconds);
+
             int randomPosition = Random.Range(0, 5);
+
             Instantiate(enemy, spawnPositions[randomPosition].transform.position, Quaternion.Euler(0, -90, 0), gameObject.transform);
+            tempAlert = Instantiate(alert, spawnPositions[randomPosition].transform.position + new Vector3(-10f, 1f, 0),
+                alert.transform.rotation, gameObject.transform);
+            StartCoroutine("DestroyTempAlert");
+
             spawnNext = true;
         }
+    }
 
+    IEnumerator DestroyTempAlert()
+    {
+        yield return new WaitForSeconds(1.8f);
+        Destroy(tempAlert);
     }
 }
