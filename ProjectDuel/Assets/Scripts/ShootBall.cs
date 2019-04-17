@@ -10,6 +10,7 @@ public class ShootBall : MonoBehaviour
     private bool _obstacleBullet;
     public Vector3 worldDirection;
     public Vector3 movement;
+    private bool can_hit = false;
 
     void Start()
     {

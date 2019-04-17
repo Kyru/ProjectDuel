@@ -78,7 +78,6 @@ public class BulletDivider : MonoBehaviour
         }
         isTriggered = true;
         Destroy(this.gameObject);
-        print("broadcast");
     }
 
     public void OnTriggerExit(Collider other)

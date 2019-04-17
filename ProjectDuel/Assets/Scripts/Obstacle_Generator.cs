@@ -260,6 +260,7 @@ public class Obstacle_Generator : MonoBehaviour
     private void changeMatBool(int row, int col)
     {
     	occupiedPos[row,col]=false;
+        numObjRow[row] -= 1;
     	if(col < Mathf.RoundToInt(numCols/2))
     	{
     		numObjHR--;
