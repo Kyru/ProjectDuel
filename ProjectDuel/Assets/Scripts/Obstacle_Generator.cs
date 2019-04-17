@@ -29,23 +29,20 @@ public class Obstacle_Generator : MonoBehaviour
    
     //private int[] numObject;
 
+    private int numObjHL=0;
+    private int numObjHR=0;
+
+
     void Start()
     {
 		Messenger<int,int>.AddListener(GameEvent.ROW_COL_OC, changeMatBool);
 
-
     	numObjects=0;
-    	//Inicialización del array de Obstáculos
-    	//obstacles = Resources.LoadAll<GameObject> ("Obstacles");
-
-    	// Número máximo de objetos y número inicial de objetos
-        // Máximo 2 objetos por fila
-    	maxObjects=2*numRows;
-        //iniObjects=(int)Mathf.Floor((float)0.5*maxObjects);
-        iniObjects = 2 * numRows;
-
-        //Inicialización de la matriz a las posiciones establecidas
-        difX = (maxX-minX)/numCols;
+    	maxObjects=numCols*numRows;
+    	iniObjects=(int)Mathf.Floor((float)0.5*maxObjects);
+    	
+    	//Inicialización de la matriz a las posiciones establecidas
+    	difX = (maxX-minX)/numCols;
     	difZ = (maxZ-minZ)/numRows;
 
         numObjRow = new int[numRows];
@@ -85,10 +82,7 @@ public class Obstacle_Generator : MonoBehaviour
 
     void Update()
     {
-        /*if(numObjects < iniObjects && !inuse)
-        {
-        	StartCoroutine(waitInstance());
-        }*/
+
     }
 
     void instantiateObstacles()
@@ -103,14 +97,32 @@ public class Obstacle_Generator : MonoBehaviour
         int ranNum;
         int i=0;
         GameObject instancia;
-        
+        bool half = true;
+
+        if(numObjHR <= numObjHL)
+        {
+        	half=true;
+        }
+        else if(numObjHL < numObjHR)
+        {
+        	half=false;
+        }
+       
     	while(i < 2000)
     		{
+    			if(half==true)
+    			{
+					ranRow = Random.Range(0,numRows);
+    				ranCol = Random.Range(0,Mathf.RoundToInt(numCols/2));
+    			}
+    			else if(half==false)
+    			{
+    				ranRow = Random.Range(0,numRows);
+    				ranCol = Random.Range(Mathf.RoundToInt(numCols/2),numCols);
+    			}
+    			
 
-    			ranRow = Random.Range(0,numRows);
-    			ranCol = Random.Range(0,numCols);
-
-    			if(!occupiedPos[ranRow,ranCol] && numObjRow[ranRow] <= 1)
+    			if(!occupiedPos[ranRow,ranCol])
     			{
                     numObjRow[ranRow] += 1;
                     occupiedPos[ranRow,ranCol]=true;
@@ -118,8 +130,17 @@ public class Obstacle_Generator : MonoBehaviour
     			}
     			i++;
     		}
-        
-            // Si no se inicializa la variable a algún valor fuera de un if tira error
+
+    		if(ranCol < Mathf.RoundToInt(numCols/2))
+    			{
+    				numObjHR++;
+    			}
+    			else if(ranCol >= Mathf.RoundToInt(numCols/2))
+    			{
+    				numObjHL++;
+    			}
+    		
+    		// Si no se inicializa la variable a algún valor fuera de un if tira error
             ranObject = 0;
 
             // Simular probabilidad
@@ -204,6 +225,7 @@ public class Obstacle_Generator : MonoBehaviour
     		{
     			Instantiate(rightChest.transform,auxV, rightChest.transform.rotation);
     			numObjects+=1;
+    			numObjHR+=1;
     		}
     	}
     	else
@@ -230,14 +252,22 @@ public class Obstacle_Generator : MonoBehaviour
     		{
     			Instantiate(leftChest.transform,auxV, leftChest.transform.rotation);
     			numObjects+=1;
+    			numObjHL+=1;
     		}
     	}
     }
 
     private void changeMatBool(int row, int col)
     {
-        numObjRow[row] -= 1; 
-        occupiedPos[row,col]=false;
+    	occupiedPos[row,col]=false;
+    	if(col < Mathf.RoundToInt(numCols/2))
+    	{
+    		numObjHR--;
+    	}
+    	else if(col>=Mathf.RoundToInt(numCols/2))
+    	{
+    		numObjHL--;
+    	}
     	numObjects-=1;
     	StartCoroutine(waitInstance());
     }

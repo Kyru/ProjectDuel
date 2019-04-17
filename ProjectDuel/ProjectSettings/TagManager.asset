@@ -11,8 +11,9 @@ TagManager:
   - ShootBlue
   - chestRight
   - chestLeft
-  - AcidBullet
   - wall
+  - AcidBullet
+  - Enemy
   layers:
   - Default
   - TransparentFX
