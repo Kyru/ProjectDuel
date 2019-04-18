@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 3380908921338658947}
   - component: {fileID: 6804125510988536655}
   - component: {fileID: 8770079516517688882}
+  - component: {fileID: 5168897440165493247}
   m_Layer: 0
-  m_Name: ShootYellow - Copy
+  m_Name: AcidBullet
   m_TagString: AcidBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,6 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   damage: 1
+  worldDirection: {x: 0, y: 0, z: 0}
+  movement: {x: 0, y: 0, z: 0}
 --- !u!54 &8770079516517688882
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -121,5 +124,18 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0
+--- !u!135 &5168897440165493247
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3380908921338658948}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

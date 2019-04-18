@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Image Yellow_PBar;
     [SerializeField] private Text victory_text;
     [SerializeField] private Button restart_Button;
+    //[SerializeField] private Obstacle_Generator generator;
 
     private List<GameObject> blue_hearts_list;
     private List<GameObject> yellow_hearts_list;
@@ -74,12 +75,14 @@ public class UIController : MonoBehaviour
 
     public void restart()
     {
+        Messenger.Broadcast(GameEvent.END);
         Messenger<int>.RemoveListener(GameEvent.BLUE_HURT, blue_remove_heart);
         Messenger<int>.RemoveListener(GameEvent.YELLOW_HURT, yellow_remove_heart);
         Messenger<double>.RemoveListener(GameEvent.BLUE_BAR, Blue_charge);
         Messenger<double>.RemoveListener(GameEvent.YELLOW_BAR, Yellow_charge);
         Messenger.RemoveListener(GameEvent.BLUE_DIES, Yellow_wins);
         Messenger.RemoveListener(GameEvent.YELLOW_DIES, Blue_wins);
+        //Messenger<int, int>.RemoveListener(GameEvent.ROW_COL_OC, generator.changeMatBool);
         SceneManager.LoadScene("FirstScene");
     }
 

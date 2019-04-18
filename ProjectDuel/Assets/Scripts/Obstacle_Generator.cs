@@ -17,7 +17,8 @@ public class Obstacle_Generator : MonoBehaviour
 	[SerializeField] private GameObject rightChest;
 	[SerializeField] private GameObject leftChest;
 
-	public GameObject[] obstacles;
+    private int[] numObjRow;
+    public GameObject[] obstacles;
     private float difX;
     private float difZ;
     private Vector3 [,] posObstacles;
@@ -25,6 +26,8 @@ public class Obstacle_Generator : MonoBehaviour
     private int maxObjects, iniObjects;
     private int numObjects;
     private bool inuse = false;
+   
+    //private int[] numObject;
 
     private int numObjHL=0;
     private int numObjHR=0;
@@ -33,16 +36,18 @@ public class Obstacle_Generator : MonoBehaviour
     void Start()
     {
 		Messenger<int,int>.AddListener(GameEvent.ROW_COL_OC, changeMatBool);
+        Messenger.AddListener(GameEvent.END, deleteListener);
 
-    	numObjects=0;
-    	maxObjects=numCols*numRows;
-    	iniObjects=(int)Mathf.Floor((float)0.5*maxObjects);
-    	
+        numObjects =0;
+        //maxObjects=numCols*numRows;
+        //iniObjects=(int)Mathf.Floor((float)0.5*maxObjects);
+        maxObjects = iniObjects = numRows * 2;
     	//Inicialización de la matriz a las posiciones establecidas
     	difX = (maxX-minX)/numCols;
     	difZ = (maxZ-minZ)/numRows;
 
-    	posObstacles=new Vector3[numRows,numCols];
+        numObjRow = new int[numRows];
+        posObstacles =new Vector3[numRows,numCols];
     	occupiedPos=new bool[numRows,numCols];
 
     	float Xaux;
@@ -118,9 +123,10 @@ public class Obstacle_Generator : MonoBehaviour
     			}
     			
 
-    			if(!occupiedPos[ranRow,ranCol])
+    			if(!occupiedPos[ranRow,ranCol] && numObjRow[ranRow]<=1)
     			{
-    				occupiedPos[ranRow,ranCol]=true;
+                    numObjRow[ranRow] += 1;
+                    occupiedPos[ranRow,ranCol]=true;
     				break;
     			}
     			i++;
@@ -142,49 +148,49 @@ public class Obstacle_Generator : MonoBehaviour
             ranNum = Random.Range(0, 100);
 
             // Aqui con ifs se decide la probabilidad de cada objet
-            auxV=posObstacles[ranRow,ranCol];
+            auxV = posObstacles[ranRow, ranCol];
 
-            if(ranNum > 40)
+            if (ranNum > 40)
             {
-               	ranObject = 1;
-               	auxV.y=-61.38f;
+                ranObject = 1;
+                auxV.y = -61.38f;
             }
-            if(ranNum <= 40)
+            if (ranNum <= 40)
             {
-               	ranObject = 0;
-               	auxV.y=-59.864f;
+                ranObject = 0;
+                auxV.y = -59.864f;
+            }
+        
+        if(i!=2000) {
+            ranDifX = Random.Range(0f, randomSumRest);
+            sumrest = Random.Range(0, 2);
+            if (sumrest == 1) { auxV.x += ranDifX; }
+            else { auxV.x -= ranDifX; }
+
+            ranDifZ = Random.Range(0f, randomSumRest);
+            sumrest = Random.Range(0, 2);
+            if (sumrest == 1) { auxV.z += ranDifZ; }
+            else { auxV.z -= ranDifZ; }
+
+            if (ranCol != -1)
+            {
+
+                instancia = Instantiate<GameObject>(obstacles[ranObject], auxV, obstacles[ranObject].transform.rotation);
+
+                if (ranNum <= 40)
+                {
+                    instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setRow(ranRow);
+                    instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setCol(ranCol);
+                }
+                else
+                {
+                    instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setRow(ranRow);
+                    instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setCol(ranCol);
+                }
+                numObjects += 1;
             }
 
-
-    		ranDifX=Random.Range(0f,randomSumRest);
-    		sumrest=Random.Range(0,2);
-    		if(sumrest==1){auxV.x+=ranDifX;}
-    		else{auxV.x-=ranDifX;}
-
-    		ranDifZ=Random.Range(0f,randomSumRest);
-    		sumrest=Random.Range(0,2);
-    		if(sumrest==1){auxV.z+=ranDifZ;}
-    		else{auxV.z-=ranDifZ;}
-
-    		if(ranCol!=-1)
-    		{
-    			
-    			instancia=Instantiate<GameObject>(obstacles[ranObject],auxV, obstacles[ranObject].transform.rotation);
-
-    			if(ranNum <= 40)
-    			{
-    				instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setRow(ranRow);
-    				instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setCol(ranCol);
-    			}
-    			else
-    			{
-    				instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setRow(ranRow);
-    				instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setCol(ranCol);
-    			}
-    			numObjects+=1;
-    		}
-    		
-    		
+        }	
 
             
     }
@@ -195,9 +201,9 @@ public class Obstacle_Generator : MonoBehaviour
     	Vector3 auxV;
     	float ranDifX,ranDifZ;
     	int sumrest;
+        numObjRow[ranRow] += 1;
 
-    	
-    	if(right)
+        if (right)
     	{
     		int ranCol=numCols-1;
     		auxV=posObstacles[ranRow,ranCol];
@@ -255,6 +261,7 @@ public class Obstacle_Generator : MonoBehaviour
     private void changeMatBool(int row, int col)
     {
     	occupiedPos[row,col]=false;
+        numObjRow[row] -= 1;
     	if(col < Mathf.RoundToInt(numCols/2))
     	{
     		numObjHR--;
@@ -274,5 +281,11 @@ public class Obstacle_Generator : MonoBehaviour
     	yield return new WaitForSeconds(rantime);
         instantiateObstacles();
         //inuse=false;
-    } 
+    }
+
+    private void deleteListener()
+    {
+        Messenger<int, int>.RemoveListener(GameEvent.ROW_COL_OC, changeMatBool);
+        Messenger.RemoveListener(GameEvent.END, deleteListener);
+    }
 }

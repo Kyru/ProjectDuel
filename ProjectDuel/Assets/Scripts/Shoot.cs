@@ -24,7 +24,7 @@ public class Shoot : MonoBehaviour
             _animator.SetTrigger("CrabShoot");
             _animator.SetBool("Reloading", false);
             _ball = Instantiate(ballPrefab) as GameObject;
-            _ball.transform.position = transform.TransformPoint(Vector3.forward * 1.5f);
+            _ball.transform.position = transform.TransformPoint(Vector3.forward * 10f);
             _ball.transform.rotation = transform.rotation;
             this.gameObject.GetComponent<PlayerInput>().set_charge(0);
         }
