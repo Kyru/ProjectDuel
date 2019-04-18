@@ -16,6 +16,7 @@ public class PlayerCharacter : MonoBehaviour
     }
 
     public int get_health(){return health;}
+    public void set_health(int h){health=h;}
 
     public void Update()
     {

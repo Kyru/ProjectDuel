@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Image Yellow_PBar;
     [SerializeField] private Text victory_text;
     [SerializeField] private Button restart_Button;
+    [SerializeField] private Text time_text;
     //[SerializeField] private Obstacle_Generator generator;
 
     private List<GameObject> blue_hearts_list;
@@ -28,6 +29,8 @@ public class UIController : MonoBehaviour
         Messenger<double>.AddListener(GameEvent.YELLOW_BAR, Yellow_charge);
         Messenger.AddListener(GameEvent.BLUE_DIES, Yellow_wins);
         Messenger.AddListener(GameEvent.YELLOW_DIES, Blue_wins);
+        Messenger<int>.AddListener(GameEvent.TIME, time_set);
+
 
         blue_hearts_list = new List<GameObject>();
         foreach (Transform child in blue_hearts.transform)
@@ -73,6 +76,14 @@ public class UIController : MonoBehaviour
         restart_Button.gameObject.SetActive(true);
     }
 
+    public void time_set(int t)
+    {
+        if(t>=0)
+        {
+            time_text.text = t.ToString();
+        }
+    }
+
     public void restart()
     {
         Messenger.Broadcast(GameEvent.END);
@@ -82,6 +93,7 @@ public class UIController : MonoBehaviour
         Messenger<double>.RemoveListener(GameEvent.YELLOW_BAR, Yellow_charge);
         Messenger.RemoveListener(GameEvent.BLUE_DIES, Yellow_wins);
         Messenger.RemoveListener(GameEvent.YELLOW_DIES, Blue_wins);
+        Messenger<int>.RemoveListener(GameEvent.TIME, time_set);
         //Messenger<int, int>.RemoveListener(GameEvent.ROW_COL_OC, generator.changeMatBool);
         SceneManager.LoadScene("FirstScene");
     }
