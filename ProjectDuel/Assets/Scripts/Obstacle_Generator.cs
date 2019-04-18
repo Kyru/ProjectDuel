@@ -38,9 +38,9 @@ public class Obstacle_Generator : MonoBehaviour
 		Messenger<int,int>.AddListener(GameEvent.ROW_COL_OC, changeMatBool);
 
     	numObjects=0;
-    	maxObjects=numCols*numRows;
-    	iniObjects=(int)Mathf.Floor((float)0.5*maxObjects);
-    	
+        //maxObjects=numCols*numRows;
+        //iniObjects=(int)Mathf.Floor((float)0.5*maxObjects);
+        maxObjects = iniObjects = numRows * 2;
     	//Inicialización de la matriz a las posiciones establecidas
     	difX = (maxX-minX)/numCols;
     	difZ = (maxZ-minZ)/numRows;
@@ -122,7 +122,7 @@ public class Obstacle_Generator : MonoBehaviour
     			}
     			
 
-    			if(!occupiedPos[ranRow,ranCol])
+    			if(!occupiedPos[ranRow,ranCol] && numObjRow[ranRow]<=1)
     			{
                     numObjRow[ranRow] += 1;
                     occupiedPos[ranRow,ranCol]=true;
