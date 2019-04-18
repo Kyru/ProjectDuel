@@ -150,15 +150,20 @@ public class Obstacle_Generator : MonoBehaviour
             // Aqui con ifs se decide la probabilidad de cada objet
             auxV = posObstacles[ranRow, ranCol];
 
-            if (ranNum > 40)
+            if (ranNum >= 70)//Spinner
             {
                 ranObject = 1;
                 auxV.y = -61.38f;
             }
-            if (ranNum <= 40)
+            else if (ranNum < 40)//Barril
             {
                 ranObject = 0;
                 auxV.y = -59.864f;
+            }
+            else if(ranNum >= 40 && ranNum < 70  )//Redirectioner
+            {
+            	ranObject = 2;
+            	auxV.y = -60f;
             }
         
         if(i!=2000) {
@@ -177,15 +182,20 @@ public class Obstacle_Generator : MonoBehaviour
 
                 instancia = Instantiate<GameObject>(obstacles[ranObject], auxV, obstacles[ranObject].transform.rotation);
 
-                if (ranNum <= 40)
+                if (ranNum < 40)
                 {
                     instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setRow(ranRow);
                     instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setCol(ranCol);
                 }
-                else
+                else if(ranNum >= 70)
                 {
                     instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setRow(ranRow);
                     instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setCol(ranCol);
+                }
+                else if(ranNum >= 40 && ranNum < 70)
+                {
+                	instancia.GetComponent<BulletRedirectioner>().setRow(ranRow);
+                    instancia.GetComponent<BulletRedirectioner>().setCol(ranCol);
                 }
                 numObjects += 1;
             }

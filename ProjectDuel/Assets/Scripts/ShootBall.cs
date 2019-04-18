@@ -99,7 +99,7 @@ public class ShootBall : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "wall")
+        if (collision.gameObject.tag == "wall" || collision.gameObject.tag == "BulletRedirectioner")
         {
             Debug.Log("Llego a entrar en una colisión");
             worldDirection = Vector3.Reflect(worldDirection, collision.contacts[0].normal);
