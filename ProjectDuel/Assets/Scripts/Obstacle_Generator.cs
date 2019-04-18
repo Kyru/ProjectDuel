@@ -36,8 +36,9 @@ public class Obstacle_Generator : MonoBehaviour
     void Start()
     {
 		Messenger<int,int>.AddListener(GameEvent.ROW_COL_OC, changeMatBool);
+        Messenger.AddListener(GameEvent.END, deleteListener);
 
-    	numObjects=0;
+        numObjects =0;
         //maxObjects=numCols*numRows;
         //iniObjects=(int)Mathf.Floor((float)0.5*maxObjects);
         maxObjects = iniObjects = numRows * 2;
@@ -280,5 +281,11 @@ public class Obstacle_Generator : MonoBehaviour
     	yield return new WaitForSeconds(rantime);
         instantiateObstacles();
         //inuse=false;
-    } 
+    }
+
+    private void deleteListener()
+    {
+        Messenger<int, int>.RemoveListener(GameEvent.ROW_COL_OC, changeMatBool);
+        Messenger.RemoveListener(GameEvent.END, deleteListener);
+    }
 }
