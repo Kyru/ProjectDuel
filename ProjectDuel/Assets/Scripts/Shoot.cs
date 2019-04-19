@@ -8,10 +8,12 @@ public class Shoot : MonoBehaviour
     private GameObject _ball;
     private Animator _animator;
     [SerializeField] private KeyCode keyShoot;
+    private AudioSource _audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
     }
 
@@ -21,6 +23,7 @@ public class Shoot : MonoBehaviour
         if (Input.GetKeyDown(keyShoot) && this.gameObject.GetComponent<PlayerInput>().get_charge()==1 
             && !GetComponent<PlayerInput>().getBeingHit())
         {
+            _audioSource.Play();
             _animator.SetTrigger("CrabShoot");
             _animator.SetBool("Reloading", false);
             _ball = Instantiate(ballPrefab) as GameObject;

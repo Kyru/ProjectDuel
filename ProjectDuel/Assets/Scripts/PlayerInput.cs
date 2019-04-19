@@ -19,10 +19,12 @@ public class PlayerInput : MonoBehaviour
     private double ch_max = 1;
     private ParticleSystem bublesParticleSystem;
     private bool crabBeingHit;
+    private AudioSource _audioSource;
 
     // Use this for initialization
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         charge=1;
@@ -86,6 +88,12 @@ public class PlayerInput : MonoBehaviour
                 _animator.SetBool("Reloading", false);
                 bublesParticleSystem.emissionRate = 0;
             }
+        }
+        else
+        {
+            Vector3 movement = new Vector3(0, 0, 0);
+            movement = transform.TransformDirection(movement);
+            _rigidbody.velocity = movement;
         }
     }
 

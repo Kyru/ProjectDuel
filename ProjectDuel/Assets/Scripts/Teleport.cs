@@ -24,5 +24,9 @@ public class Teleport : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
+        if (other.gameObject.tag == "AcidBullet")
+        {
+            Destroy(other.gameObject);
+        }
     }
 }

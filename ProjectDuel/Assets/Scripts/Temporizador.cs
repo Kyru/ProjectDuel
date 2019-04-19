@@ -18,11 +18,12 @@ public class Temporizador : MonoBehaviour
 		yellowHealth=yellowCrab.GetComponent<PlayerCharacter>().get_health();
     }
 
-    void Update()
+    void LateUpdate()
     {
-    	if(blueHealth > 0  && yellowHealth > 0){
-    		blueHealth = blueCrab.GetComponent<PlayerCharacter>().get_health();
-    		yellowHealth = yellowCrab.GetComponent<PlayerCharacter>().get_health();
+            if(blueCrab != null && yellowCrab != null)
+            {
+                blueHealth = blueCrab.GetComponent<PlayerCharacter>().get_health();
+                yellowHealth = yellowCrab.GetComponent<PlayerCharacter>().get_health();    		
 
 			tiempo -= Time.deltaTime;
 

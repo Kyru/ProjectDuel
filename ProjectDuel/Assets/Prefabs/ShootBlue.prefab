@@ -109,6 +109,7 @@ MonoBehaviour:
   speed: 10
   damage: 1
   worldDirection: {x: 0, y: 0, z: 0}
+  movement: {x: 0, y: 0, z: 0}
 --- !u!54 &8770079516517688882
 Rigidbody:
   m_ObjectHideFlags: 0
