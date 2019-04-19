@@ -24,7 +24,8 @@ public class ShootBall : MonoBehaviour
     }
 
     public void OnTriggerEnter(Collider other)
-    { 
+    {
+        bool haveShield;
         if (other.gameObject.tag == "BulletSpinner")
         {
             can_hit=true;
@@ -51,18 +52,24 @@ public class ShootBall : MonoBehaviour
                     case "CrabYellow":
                         if (can_hit)
                         {
+                            haveShield = other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU();
                             other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
-                            if (!other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
+                            if (!haveShield)
+                            {
                                 other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
-                            Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+                                Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+                            }
                             Destroy(this.gameObject);
                         }
                         break;
                     case "CrabBlue":
+                        haveShield = other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU();
                         other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
-                        if (!other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
+                        if (!haveShield)
+                        {
                             other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
-                        Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+                            Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+                        }
                         Destroy(this.gameObject);
                         break;
                     case "SpeedPowerUp":
@@ -94,18 +101,24 @@ public class ShootBall : MonoBehaviour
                     case "CrabBlue":
                         if (can_hit)
                         {
+                            haveShield = other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU();
                             other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
-                            if (!other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
+                            if (!haveShield)
+                            {
                                 other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
-                            Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+                                Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+                            }
                             Destroy(this.gameObject);
                         }
                         break;
                     case "CrabYellow":
+                        haveShield = other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU();
                         other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
-                        if (!other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
+                        if (!haveShield)
+                        {
                             other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
-                        Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+                            Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+                        }
                         Destroy(this.gameObject);
                         break;
                     case "SpeedPowerUp":
@@ -131,17 +144,23 @@ public class ShootBall : MonoBehaviour
                 switch(other.gameObject.tag)
                 {
                     case "CrabBlue":
+                        haveShield = other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU();
                         other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
-                        if (other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
+                        if (!haveShield)
+                        {
                             other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
-                        Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+                            Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+                        }
                         Destroy(this.gameObject);
                         break;
                     case "CrabYellow":
+                        haveShield = other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU();
                         other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
-                        if (other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
+                        if (!haveShield)
+                        {
                             other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
-                        Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+                            Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+                        }
                         Destroy(this.gameObject);
                         break;
                 }
