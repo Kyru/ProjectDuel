@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject blue_hearts;
     [SerializeField] private GameObject yellow_hearts;
     [SerializeField] private GameObject Explosion;
+    [SerializeField] private AudioSource AudioSource;
     [SerializeField] private Sprite empty_heart;
     [SerializeField] private Image Blue_PBar;
     [SerializeField] private Image Yellow_PBar;
@@ -87,6 +88,9 @@ public class UIController : MonoBehaviour
     }
 
     public void sudden_death(){
+        Blue_PBar.color = Color.red;
+        Yellow_PBar.color = Color.red;
+        AudioSource.enabled = true;
         Explosion.SetActive(true);
         time_text.text = "SUDDEN DEATH";
     }
