@@ -13,12 +13,14 @@ public class PlayerCharacter : MonoBehaviour
     private bool haveShield;
     private float shieldPULastTime = 10f;
     private float timeFlickingPU;
+    private Animator _animator;
 
     private void Start()
     {
         haveShield = false;
         shieldPULastTime = float.MaxValue;
         timeFlickingPU = GetComponent<PlayerInput>().getTimeFlickingPU();
+        _animator = GetComponent<Animator>();
 
         Messenger<string>.AddListener(GameEvent.SHIELD_POWERUP_ADD, addShield);
         Messenger.AddListener(GameEvent.END, removeListeners);
@@ -27,9 +29,15 @@ public class PlayerCharacter : MonoBehaviour
     public void Hurt(int damage) 
     {
         if (haveShield)
+        {
             haveShield = false;
+            Messenger<string>.Broadcast(GameEvent.SHIELD_POWERUP_REMOVE_INSTANT, gameObject.tag);
+        }
     	else if(health > 0)
+        {
             health -= damage;
+            _animator.SetTrigger("CrabHit");
+        }
     }
 
     public int get_health(){return health;}
@@ -78,4 +86,6 @@ public class PlayerCharacter : MonoBehaviour
         Messenger<string>.RemoveListener(GameEvent.SHIELD_POWERUP_ADD, addShield);
         Messenger.RemoveListener(GameEvent.END, removeListeners);
     }
+
+    public bool haveShieldPU() { return haveShield; }
 }

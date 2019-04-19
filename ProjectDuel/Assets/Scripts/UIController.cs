@@ -47,6 +47,7 @@ public class UIController : MonoBehaviour
         Messenger<string, float>.AddListener(GameEvent.RELOAD_POWERUP_REMOVE, RemoveReloadPU);
         Messenger<string>.AddListener(GameEvent.SHIELD_POWERUP_ADD, ShieldPU);
         Messenger<string, float>.AddListener(GameEvent.SHIELD_POWERUP_REMOVE, RemoveShieldPU);
+        Messenger<string>.AddListener(GameEvent.SHIELD_POWERUP_REMOVE_INSTANT, RemoveShieldPUInstant);
 
         BlueBootsAnimator = BlueBoots.GetComponent<Animator>();
         YellowBootsAnimator = YellowBoots.GetComponent<Animator>();
@@ -114,6 +115,7 @@ public class UIController : MonoBehaviour
         Messenger<string, float>.RemoveListener(GameEvent.RELOAD_POWERUP_REMOVE, RemoveReloadPU);
         Messenger<string>.RemoveListener(GameEvent.SHIELD_POWERUP_ADD, ShieldPU);
         Messenger<string, float>.RemoveListener(GameEvent.SHIELD_POWERUP_REMOVE, RemoveShieldPU);
+        Messenger<string>.RemoveListener(GameEvent.SHIELD_POWERUP_REMOVE_INSTANT, RemoveShieldPUInstant);
         //Messenger<int, int>.RemoveListener(GameEvent.ROW_COL_OC, generator.changeMatBool);
         SceneManager.LoadScene("FirstScene");
     }
@@ -185,6 +187,18 @@ public class UIController : MonoBehaviour
         else if (crab == CrabType.CRAB_YELLOW)
         {
             StartCoroutine(FlickUIPowerUp(YellowArmorAnimator, timeFlicking));
+        }
+    }
+
+    private void RemoveShieldPUInstant(string crab)
+    {
+        if (crab == CrabType.CRAB_BLUE)
+        {
+            BlueArmorAnimator.SetBool("Enabled", false);
+            BlueArmorAnimator.SetBool("Flick", false);
+        } else if (crab == CrabType.CRAB_YELLOW) {
+            YellowArmorAnimator.SetBool("Enabled", false);
+            YellowArmorAnimator.SetBool("Flick", false);
         }
     }
 

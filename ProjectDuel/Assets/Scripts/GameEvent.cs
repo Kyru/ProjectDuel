@@ -18,6 +18,7 @@ public class GameEvent : MonoBehaviour
     public const string EXTRA_BALL_POWERUP_REMOVE = "EXTRA_BALL_POWERUP_REMOVE";
     public const string SHIELD_POWERUP_ADD = "SHIELD_POWERUP_ADD";
     public const string SHIELD_POWERUP_REMOVE = "SHIELD_POWERUP_REMOVE";
+    public const string SHIELD_POWERUP_REMOVE_INSTANT = "SHIELD_POWERUP_REMOVE_INSTANT";
     public const string RELOAD_POWERUP_ADD = "RELOAD_POWER_UP_ADD";
     public const string RELOAD_POWERUP_REMOVE = "RELOAD_POWER_UP_REMOVE";
     public const string END = "END";
