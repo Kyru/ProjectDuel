@@ -43,8 +43,8 @@ public class UIController : MonoBehaviour
         Messenger<double>.AddListener(GameEvent.YELLOW_BAR, Yellow_charge);
         Messenger.AddListener(GameEvent.BLUE_DIES, Yellow_wins);
         Messenger.AddListener(GameEvent.YELLOW_DIES, Blue_wins);
-        Messenger<string>.AddListener(GameEvent.SPEED_POWERUP_ADD, BootsPU);
-        Messenger<string, float>.AddListener(GameEvent.SPEED_POWERUP_REMOVE, RemoveBootsPU);
+        Messenger<string>.AddListener(GameEvent.SPEED_POWERUP_ADD, SpeedPU);
+        Messenger<string, float>.AddListener(GameEvent.SPEED_POWERUP_REMOVE, RemoveSpeedPU);
         Messenger<string>.AddListener(GameEvent.RELOAD_POWERUP_ADD, ReloadPU);
         Messenger<string, float>.AddListener(GameEvent.RELOAD_POWERUP_REMOVE, RemoveReloadPU);
         Messenger<string>.AddListener(GameEvent.SHIELD_POWERUP_ADD, ShieldPU);
@@ -112,8 +112,8 @@ public class UIController : MonoBehaviour
         Messenger<double>.RemoveListener(GameEvent.YELLOW_BAR, Yellow_charge);
         Messenger.RemoveListener(GameEvent.BLUE_DIES, Yellow_wins);
         Messenger.RemoveListener(GameEvent.YELLOW_DIES, Blue_wins);
-        Messenger<string>.RemoveListener(GameEvent.SPEED_POWERUP_ADD, BootsPU);
-        Messenger<string, float>.RemoveListener(GameEvent.SPEED_POWERUP_REMOVE, RemoveBootsPU);
+        Messenger<string>.RemoveListener(GameEvent.SPEED_POWERUP_ADD, SpeedPU);
+        Messenger<string, float>.RemoveListener(GameEvent.SPEED_POWERUP_REMOVE, RemoveSpeedPU);
         Messenger<string>.RemoveListener(GameEvent.RELOAD_POWERUP_ADD, ReloadPU);
         Messenger<string, float>.RemoveListener(GameEvent.RELOAD_POWERUP_REMOVE, RemoveReloadPU);
         Messenger<string>.RemoveListener(GameEvent.SHIELD_POWERUP_ADD, ShieldPU);
@@ -124,7 +124,7 @@ public class UIController : MonoBehaviour
         SceneManager.LoadScene("FirstScene");
     }
 
-    private void BootsPU(string crab)
+    private void SpeedPU(string crab)
     {
         if (crab == CrabType.CRAB_BLUE)
         {
@@ -135,7 +135,7 @@ public class UIController : MonoBehaviour
         }
     }
 
-    private void RemoveBootsPU(string crab, float timeFlicking)
+    private void RemoveSpeedPU(string crab, float timeFlicking)
     {
         if (crab == CrabType.CRAB_BLUE)
         {
