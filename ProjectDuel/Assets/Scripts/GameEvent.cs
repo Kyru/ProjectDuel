@@ -14,4 +14,5 @@ public class GameEvent : MonoBehaviour
    public const string ROW_COL_OC = "ROW_COL_OC";
    public const string END = "END";
    public const string TIME = "TIME";
+   public const string SUDDEN_DEATH = "SUDDEN_DEATH";
 }

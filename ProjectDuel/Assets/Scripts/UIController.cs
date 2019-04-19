@@ -30,6 +30,7 @@ public class UIController : MonoBehaviour
         Messenger.AddListener(GameEvent.BLUE_DIES, Yellow_wins);
         Messenger.AddListener(GameEvent.YELLOW_DIES, Blue_wins);
         Messenger<int>.AddListener(GameEvent.TIME, time_set);
+        Messenger.AddListener(GameEvent.SUDDEN_DEATH, sudden_death);
 
 
         blue_hearts_list = new List<GameObject>();
@@ -84,6 +85,10 @@ public class UIController : MonoBehaviour
         }
     }
 
+    public void sudden_death(){
+        time_text.text = "SUDDEN DEATH";
+    }
+
     public void restart()
     {
         Messenger.Broadcast(GameEvent.END);
@@ -94,6 +99,7 @@ public class UIController : MonoBehaviour
         Messenger.RemoveListener(GameEvent.BLUE_DIES, Yellow_wins);
         Messenger.RemoveListener(GameEvent.YELLOW_DIES, Blue_wins);
         Messenger<int>.RemoveListener(GameEvent.TIME, time_set);
+        Messenger.RemoveListener(GameEvent.SUDDEN_DEATH, sudden_death);
         //Messenger<int, int>.RemoveListener(GameEvent.ROW_COL_OC, generator.changeMatBool);
         SceneManager.LoadScene("FirstScene");
     }

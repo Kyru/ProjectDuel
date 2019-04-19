@@ -11,6 +11,9 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private KeyCode keyMovement2;
     [SerializeField] private KeyCode keyReload;
     [SerializeField] GameObject Bubles;
+    [SerializeField] GameObject Aura;
+    [SerializeField] GameObject AuraBottom;
+
 
     private Rigidbody _rigidbody;
     private Animator _animator;
@@ -18,6 +21,8 @@ public class PlayerInput : MonoBehaviour
     private double ch_acc = 0.5;
     private double ch_max = 1;
     private ParticleSystem bublesParticleSystem;
+    private ParticleSystem auraParticleSystem;
+    private ParticleSystem auraBottomParticleSystem;
     private bool crabBeingHit;
     private AudioSource _audioSource;
 
@@ -27,17 +32,25 @@ public class PlayerInput : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
-        charge=1;
+        charge = 1;
         crabBeingHit = false;
         bublesParticleSystem = Bubles.GetComponent<ParticleSystem>();
+        auraParticleSystem = Aura.GetComponent<ParticleSystem>();
+        auraBottomParticleSystem = AuraBottom.GetComponent<ParticleSystem>();
+
         bublesParticleSystem.emissionRate = 0;
+        auraParticleSystem.emissionRate = 0;
+        auraBottomParticleSystem.emissionRate = 0;
+
         Bubles.SetActive(true);
+
+        Messenger.AddListener(GameEvent.SUDDEN_DEATH, sudden_death);
     }
 
     // Update is called once per frame
     void Update()
     {
-     
+
         if (!crabBeingHit)
         {
             if (Input.GetKey(keyMovement1))
@@ -97,12 +110,18 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    public double get_charge(){return charge;}
-    public void set_charge(double ch){charge=ch;}
+    void sudden_death()
+    {
+        auraParticleSystem.emissionRate = 20;
+        auraBottomParticleSystem.emissionRate = 10;
+    }
 
-    public bool getBeingHit(){return this.crabBeingHit;}
-    public void setBeingHit(bool b){this.crabBeingHit = b;}
+    public double get_charge() { return charge; }
+    public void set_charge(double ch) { charge = ch; }
 
-    public void finishBeingHit(){ this.crabBeingHit = false; }
+    public bool getBeingHit() { return this.crabBeingHit; }
+    public void setBeingHit(bool b) { this.crabBeingHit = b; }
+
+    public void finishBeingHit() { this.crabBeingHit = false; }
 }
 

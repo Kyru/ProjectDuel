@@ -4,54 +4,56 @@ using UnityEngine;
 
 public class Temporizador : MonoBehaviour
 {
-	[SerializeField] private GameObject blueCrab;
-	[SerializeField] private GameObject yellowCrab;
+    [SerializeField] private GameObject blueCrab;
+    [SerializeField] private GameObject yellowCrab;
 
-	private int blueHealth;
-	private int yellowHealth;
+    private int blueHealth;
+    private int yellowHealth;
 
     public float tiempo;
 
     void Start()
     {
-    	blueHealth=blueCrab.GetComponent<PlayerCharacter>().get_health();
-		yellowHealth=yellowCrab.GetComponent<PlayerCharacter>().get_health();
+        blueHealth = blueCrab.GetComponent<PlayerCharacter>().get_health();
+        yellowHealth = yellowCrab.GetComponent<PlayerCharacter>().get_health();
     }
 
     void LateUpdate()
     {
-            if(blueCrab != null && yellowCrab != null)
+        if (blueCrab != null && yellowCrab != null)
+        {
+            blueHealth = blueCrab.GetComponent<PlayerCharacter>().get_health();
+            yellowHealth = yellowCrab.GetComponent<PlayerCharacter>().get_health();
+
+            tiempo -= Time.deltaTime;
+
+            Messenger<int>.Broadcast(GameEvent.TIME, Mathf.CeilToInt(tiempo));
+
+
+            if (tiempo <= 0)
             {
-                blueHealth = blueCrab.GetComponent<PlayerCharacter>().get_health();
-                yellowHealth = yellowCrab.GetComponent<PlayerCharacter>().get_health();    		
+                if (blueHealth > yellowHealth)
+                {
+                    yellowCrab.GetComponent<PlayerCharacter>().set_health(0);
+                }
+                else if (yellowHealth > blueHealth)
+                {
+                    blueCrab.GetComponent<PlayerCharacter>().set_health(0);
+                }
+                else if (yellowHealth == blueHealth)
+                {
+                    for (int i = 1; i < yellowHealth; i++)
+                    {
+                        Messenger<int>.Broadcast(GameEvent.BLUE_HURT, blueHealth - i);
+                        Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, yellowHealth - i);
+                    }
 
-			tiempo -= Time.deltaTime;
+                    yellowCrab.GetComponent<PlayerCharacter>().set_health(1);
+                    blueCrab.GetComponent<PlayerCharacter>().set_health(1);
 
-        	Messenger<int>.Broadcast(GameEvent.TIME, Mathf.CeilToInt(tiempo));
-
-        
-        	if(tiempo <= 0)
-        	{
-        		if(blueHealth > yellowHealth)
-        		{
-        			yellowCrab.GetComponent<PlayerCharacter>().set_health(0);
-        		}
-        		else if(yellowHealth > blueHealth)
-        		{
-        			blueCrab.GetComponent<PlayerCharacter>().set_health(0);
-        		}
-        		else if(yellowHealth==blueHealth)
-        		{
-        			for(int i=1; i < yellowHealth; i++)
-        			{
-        				Messenger<int>.Broadcast(GameEvent.BLUE_HURT, blueHealth-i);
-        				Messenger<int>.Broadcast(GameEvent.YELLOW_HURT,yellowHealth-i);
-        			}
-
-        			yellowCrab.GetComponent<PlayerCharacter>().set_health(1);
-        			blueCrab.GetComponent<PlayerCharacter>().set_health(1);
-        		}
-        	}
-    	}
+                    Messenger.Broadcast(GameEvent.SUDDEN_DEATH);
+                }
+            }
+        }
     }
 }
