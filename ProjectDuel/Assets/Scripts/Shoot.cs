@@ -31,7 +31,11 @@ public class Shoot : MonoBehaviour
                 || this.gameObject.GetComponent<PlayerInput>().get_charge() != 1)
             {    
                 extraBalls--;
+                Messenger<string, int>.Broadcast(GameEvent.EXTRA_BALL_POWERUP_CHANGE, gameObject.tag, extraBalls);
                 Debug.Log("Acabo de gastar una bola extra, me quedan: " + extraBalls);
+            } else
+            {
+                this.gameObject.GetComponent<PlayerInput>().set_charge(0);
             }
 
             _animator.SetTrigger("CrabShoot");
@@ -39,7 +43,6 @@ public class Shoot : MonoBehaviour
             _ball = Instantiate(ballPrefab) as GameObject;
             _ball.transform.position = transform.TransformPoint(Vector3.forward * 10f);
             _ball.transform.rotation = transform.rotation;
-            this.gameObject.GetComponent<PlayerInput>().set_charge(0);
         }
     }
 
@@ -48,6 +51,7 @@ public class Shoot : MonoBehaviour
         if (gameObject.CompareTag(crab))
         {
             extraBalls++;
+            Messenger<string, int>.Broadcast(GameEvent.EXTRA_BALL_POWERUP_CHANGE, gameObject.tag, extraBalls);
         }
     }
 

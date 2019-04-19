@@ -20,6 +20,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private Image YellowGloves;
     [SerializeField] private Image BlueArmor;
     [SerializeField] private Image YellowArmor;
+    [SerializeField] private Text BlueExtraBallsText;
+    [SerializeField] private Text YellowExtraBallsText;
     //[SerializeField] private Obstacle_Generator generator;
 
     private List<GameObject> blue_hearts_list;
@@ -48,6 +50,7 @@ public class UIController : MonoBehaviour
         Messenger<string>.AddListener(GameEvent.SHIELD_POWERUP_ADD, ShieldPU);
         Messenger<string, float>.AddListener(GameEvent.SHIELD_POWERUP_REMOVE, RemoveShieldPU);
         Messenger<string>.AddListener(GameEvent.SHIELD_POWERUP_REMOVE_INSTANT, RemoveShieldPUInstant);
+        Messenger<string, int>.AddListener(GameEvent.EXTRA_BALL_POWERUP_CHANGE, ExtraBallPU);
 
         BlueBootsAnimator = BlueBoots.GetComponent<Animator>();
         YellowBootsAnimator = YellowBoots.GetComponent<Animator>();
@@ -212,6 +215,29 @@ public class UIController : MonoBehaviour
         if (!anim.GetBool("Enabled"))
         {
             anim.SetBool("Flick", false);
+        }
+    }
+
+    private void ExtraBallPU(string crab, int numberOfBalls)
+    {
+        if (crab == CrabType.CRAB_BLUE)
+        {
+            BlueExtraBallsText.text = numberOfBalls.ToString();
+        } else if (crab == CrabType.CRAB_YELLOW)
+        {
+            YellowExtraBallsText.text = numberOfBalls.ToString();
+        }
+    }
+
+    private void RemoveExtraBallPU(string crab, int numberOfBalls)
+    {
+        if (crab == CrabType.CRAB_BLUE)
+        {
+            BlueExtraBallsText.text = numberOfBalls.ToString();
+        }
+        else if (crab == CrabType.CRAB_YELLOW)
+        {
+            YellowExtraBallsText.text = numberOfBalls.ToString();
         }
     }
 
