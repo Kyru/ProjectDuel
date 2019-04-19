@@ -52,7 +52,7 @@ public class ShootBall : MonoBehaviour
                         if (can_hit)
                         {
                             other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
-                            if (other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
+                            if (!other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
                                 other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
                             Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
                             Destroy(this.gameObject);
@@ -60,7 +60,7 @@ public class ShootBall : MonoBehaviour
                         break;
                     case "CrabBlue":
                         other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
-                        if (other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
+                        if (!other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
                             other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
                         Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
                         Destroy(this.gameObject);
@@ -95,7 +95,7 @@ public class ShootBall : MonoBehaviour
                         if (can_hit)
                         {
                             other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
-                            if (other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
+                            if (!other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
                                 other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
                             Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
                             Destroy(this.gameObject);
@@ -103,7 +103,7 @@ public class ShootBall : MonoBehaviour
                         break;
                     case "CrabYellow":
                         other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
-                        if (other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
+                        if (!other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
                             other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
                         Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
                         Destroy(this.gameObject);

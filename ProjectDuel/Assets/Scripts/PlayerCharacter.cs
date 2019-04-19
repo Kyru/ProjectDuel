@@ -35,8 +35,11 @@ public class PlayerCharacter : MonoBehaviour
         }
     	else if(health > 0)
         {
-            health -= damage;
-            _animator.SetTrigger("CrabHit");
+            if (!gameObject.GetComponent<PlayerInput>().getBeingHit())
+            {
+                health -= damage;
+                _animator.SetTrigger("CrabHit");
+            }
         }
     }
 

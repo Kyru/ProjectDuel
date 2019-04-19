@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
         else if (other.gameObject.tag == "CrabBlue")
         {
             other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
-            if (other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
+            if (!other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
                 other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
             Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
             this.gameObject.GetComponent<Animator>().SetTrigger("enemyHit");
@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
         else if (other.gameObject.tag == "CrabYellow")
         {
             other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
-            if (other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
+            if (!other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU())
                 other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
             Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
             this.gameObject.GetComponent<Animator>().SetTrigger("enemyHit");
