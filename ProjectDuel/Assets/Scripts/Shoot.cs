@@ -12,6 +12,9 @@ public class Shoot : MonoBehaviour
     private AudioSource _audioSource;
     private bool is_sudden_death;
     private bool canShoot;
+    private bool canAddExtraBall;
+    private float coolDownExtraBall;
+    private float addBallTime;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +25,8 @@ public class Shoot : MonoBehaviour
 
         is_sudden_death = false;
         canShoot = true;
+        canAddExtraBall = true;
+        coolDownExtraBall = 0.1f;
 
         Messenger.AddListener(GameEvent.SUDDEN_DEATH, sudden_death);
 
@@ -74,14 +79,21 @@ public class Shoot : MonoBehaviour
             }
         }
 
+        if (!canAddExtraBall && (Time.time > addBallTime + coolDownExtraBall))
+        {
+            canAddExtraBall = true;
+        }
+
     }
 
     private void addExtraBall(string crab)
     {
-        if (gameObject.CompareTag(crab))
+        if (gameObject.CompareTag(crab) && canAddExtraBall)
         {
             extraBalls++;
             Messenger<string, int>.Broadcast(GameEvent.EXTRA_BALL_POWERUP_CHANGE, gameObject.tag, extraBalls);
+            addBallTime = Time.time;
+            canAddExtraBall = false;
         }
     }
 
