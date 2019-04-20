@@ -32,27 +32,31 @@ public class Shoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(keyShoot)
-            && (this.gameObject.GetComponent<PlayerInput>().get_charge()==1 || extraBalls > 0)
-            && !GetComponent<PlayerInput>().getBeingHit())
+        if (!is_sudden_death)
         {
-            if ((this.gameObject.GetComponent<PlayerInput>().get_charge() == 1 && extraBalls > 0)
-                || this.gameObject.GetComponent<PlayerInput>().get_charge() != 1)
-            {    
-                extraBalls--;
-                Messenger<string, int>.Broadcast(GameEvent.EXTRA_BALL_POWERUP_CHANGE, gameObject.tag, extraBalls);
-                Debug.Log("Acabo de gastar una bola extra, me quedan: " + extraBalls);
-            } else
+            if (Input.GetKeyDown(keyShoot)
+            && (this.gameObject.GetComponent<PlayerInput>().get_charge() == 1 || extraBalls > 0)
+            && !GetComponent<PlayerInput>().getBeingHit())
             {
-                this.gameObject.GetComponent<PlayerInput>().set_charge(0);
-            }
+                if ((this.gameObject.GetComponent<PlayerInput>().get_charge() == 1 && extraBalls > 0)
+                    || this.gameObject.GetComponent<PlayerInput>().get_charge() != 1)
+                {
+                    extraBalls--;
+                    Messenger<string, int>.Broadcast(GameEvent.EXTRA_BALL_POWERUP_CHANGE, gameObject.tag, extraBalls);
+                    Debug.Log("Acabo de gastar una bola extra, me quedan: " + extraBalls);
+                }
+                else
+                {
+                    this.gameObject.GetComponent<PlayerInput>().set_charge(0);
+                }
 
-            _animator.SetTrigger("CrabShoot");
-            _animator.SetBool("Reloading", false);
-            _ball = Instantiate(ballPrefab) as GameObject;
-            _ball.transform.position = transform.TransformPoint(Vector3.forward * 10f);
-            _ball.transform.rotation = transform.rotation;
-        }
+                _animator.SetTrigger("CrabShoot");
+                _animator.SetBool("Reloading", false);
+                _ball = Instantiate(ballPrefab) as GameObject;
+                _ball.transform.position = transform.TransformPoint(Vector3.forward * 10f);
+                _ball.transform.rotation = transform.rotation;
+            }
+        } 
         else
         {
             if (Input.GetKeyDown(keyShoot) && !GetComponent<PlayerInput>().getBeingHit())

@@ -59,7 +59,6 @@ public class PlayerInput : MonoBehaviour
         Bubles.SetActive(true);
 
         Messenger.AddListener(GameEvent.SUDDEN_DEATH, sudden_death);
-        Messenger.AddListener(GameEvent.END, endGame);
 
         Messenger<string>.AddListener(GameEvent.SPEED_POWERUP_ADD, addSpeedPowerUp);
         Messenger<string>.AddListener(GameEvent.RELOAD_POWERUP_ADD, increaseReloadSpeed);
@@ -144,11 +143,6 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    void endGame()
-    {
-        Messenger.RemoveListener(GameEvent.SUDDEN_DEATH, sudden_death);
-    }
-
     void sudden_death()
     {
         auraParticleSystem.emissionRate = 20;
@@ -205,6 +199,7 @@ public class PlayerInput : MonoBehaviour
     {
         Messenger<string>.RemoveListener(GameEvent.SPEED_POWERUP_ADD, addSpeedPowerUp);
         Messenger<string>.RemoveListener(GameEvent.RELOAD_POWERUP_ADD, increaseReloadSpeed);
+        Messenger.RemoveListener(GameEvent.SUDDEN_DEATH, sudden_death);
         Messenger.RemoveListener(GameEvent.END, removeListeners);
     }
 
