@@ -14,6 +14,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private Sprite empty_heart;
     [SerializeField] private Image Blue_PBar;
     [SerializeField] private Image Yellow_PBar;
+    [SerializeField] private Image Blue_BarBack;
+    [SerializeField] private Image Yellow_BarBack;
     [SerializeField] private Text victory_text;
     [SerializeField] private Button restart_Button;
     [SerializeField] private Text time_text;
@@ -81,15 +83,19 @@ public class UIController : MonoBehaviour
 
     public void time_set(int t)
     {
-        if(t>=0)
+        if (t >= 0)
         {
             time_text.text = t.ToString();
         }
     }
 
-    public void sudden_death(){
+    public void sudden_death()
+    {
         Blue_PBar.color = Color.red;
         Yellow_PBar.color = Color.red;
+        Yellow_BarBack.color = Color.red;
+        Blue_BarBack.color = Color.red;
+
         AudioSource.enabled = true;
         Explosion.SetActive(true);
         time_text.text = "SUDDEN DEATH";

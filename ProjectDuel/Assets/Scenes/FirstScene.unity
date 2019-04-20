@@ -151,6 +151,8 @@ MonoBehaviour:
   empty_heart: {fileID: 21300000, guid: 2505e7b8a00124242b36009c9ad32df7, type: 3}
   Blue_PBar: {fileID: 107181584}
   Yellow_PBar: {fileID: 1611035629}
+  Blue_BarBack: {fileID: 1745867198}
+  Yellow_BarBack: {fileID: 321171326}
   victory_text: {fileID: 48872477}
   restart_Button: {fileID: 1837492478}
   time_text: {fileID: 1268217957}
@@ -524,6 +526,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5652737268189090319}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &321171326 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 577201754, guid: 2e3aac34dc2576a4786342ca45b5e993,
+    type: 3}
+  m_PrefabInstance: {fileID: 822143973}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &447357452
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3644,6 +3658,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 118
       objectReference: {fileID: 0}
+    - target: {fileID: 1474082535003232950, guid: 327666a7a3000904fbd42e5904cb169a,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 577f30036e998d84e91d433594934af8, type: 3}
     - target: {fileID: 934305216771621233, guid: 327666a7a3000904fbd42e5904cb169a,
         type: 3}
       propertyPath: m_Enabled
@@ -3664,11 +3683,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1474082535003232950, guid: 327666a7a3000904fbd42e5904cb169a,
-        type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 577f30036e998d84e91d433594934af8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 327666a7a3000904fbd42e5904cb169a, type: 3}
 --- !u!114 &1268217957 stripped
@@ -3991,6 +4005,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1745867198 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 541379171, guid: 2e3aac34dc2576a4786342ca45b5e993,
+    type: 3}
+  m_PrefabInstance: {fileID: 822143973}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1818140970 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 115230, guid: 3597f407268799a4584d29b4e956fc13,

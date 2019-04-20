@@ -45,6 +45,7 @@ public class PlayerInput : MonoBehaviour
         Bubles.SetActive(true);
 
         Messenger.AddListener(GameEvent.SUDDEN_DEATH, sudden_death);
+        Messenger.AddListener(GameEvent.END, endGame);
     }
 
     // Update is called once per frame
@@ -108,6 +109,11 @@ public class PlayerInput : MonoBehaviour
             movement = transform.TransformDirection(movement);
             _rigidbody.velocity = movement;
         }
+    }
+
+    void endGame()
+    {
+        Messenger.RemoveListener(GameEvent.SUDDEN_DEATH, sudden_death);
     }
 
     void sudden_death()
