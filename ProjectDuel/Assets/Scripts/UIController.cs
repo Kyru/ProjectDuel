@@ -119,7 +119,7 @@ public class UIController : MonoBehaviour
         Messenger<string>.RemoveListener(GameEvent.SHIELD_POWERUP_ADD, ShieldPU);
         Messenger<string, float>.RemoveListener(GameEvent.SHIELD_POWERUP_REMOVE, RemoveShieldPU);
         Messenger<string>.RemoveListener(GameEvent.SHIELD_POWERUP_REMOVE_INSTANT, RemoveShieldPUInstant);
-        Messenger<string, int>.AddListener(GameEvent.EXTRA_BALL_POWERUP_CHANGE, ExtraBallPU);
+        Messenger<string, int>.RemoveListener(GameEvent.EXTRA_BALL_POWERUP_CHANGE, ExtraBallPU);
         //Messenger<int, int>.RemoveListener(GameEvent.ROW_COL_OC, generator.changeMatBool);
         SceneManager.LoadScene("FirstScene");
     }
