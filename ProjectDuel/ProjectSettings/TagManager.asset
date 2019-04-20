@@ -14,8 +14,12 @@ TagManager:
   - wall
   - AcidBullet
   - Enemy
-  - BulletSpinner
   - BulletRedirectioner
+  - BulletSpinner
+  - SpeedPowerUp
+  - ExtraBallPowerUp
+  - ShieldPowerUp
+  - ReloadPowerUp
   layers:
   - Default
   - TransparentFX

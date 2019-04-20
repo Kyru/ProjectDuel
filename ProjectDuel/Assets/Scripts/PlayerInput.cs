@@ -7,6 +7,10 @@ public class PlayerInput : MonoBehaviour
 {
     public float speed = 6.0f;
     public float gravity = -9.8f;
+    [SerializeField] float speedPUCoef = 1.25f;
+    [SerializeField] float speedPUTime = 10f;
+    [SerializeField] double reloadPUCoef = 1.25;
+    [SerializeField] double reloadPUTime = 10f;
     [SerializeField] private KeyCode keyMovement1;
     [SerializeField] private KeyCode keyMovement2;
     [SerializeField] private KeyCode keyReload;
@@ -19,21 +23,31 @@ public class PlayerInput : MonoBehaviour
     private Animator _animator;
     private double charge;
     private double ch_acc = 0.5;
+    private double ch_acc_default;
     private double ch_max = 1;
+    private float defSpeed = 6.0f;
+    private float speedPULastTime;
+    private float reloadPULastTime;
     private ParticleSystem bublesParticleSystem;
     private ParticleSystem auraParticleSystem;
     private ParticleSystem auraBottomParticleSystem;
     private bool crabBeingHit;
     private AudioSource _audioSource;
+    private float timeFlickingPU;
 
     // Use this for initialization
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
+        defSpeed = speed;
+        ch_acc_default = ch_acc;
+        speedPULastTime = float.MaxValue;
+        reloadPULastTime = float.MaxValue;
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         charge = 1;
         crabBeingHit = false;
+        timeFlickingPU = 2f;
         bublesParticleSystem = Bubles.GetComponent<ParticleSystem>();
         auraParticleSystem = Aura.GetComponent<ParticleSystem>();
         auraBottomParticleSystem = AuraBottom.GetComponent<ParticleSystem>();
@@ -46,6 +60,11 @@ public class PlayerInput : MonoBehaviour
 
         Messenger.AddListener(GameEvent.SUDDEN_DEATH, sudden_death);
         Messenger.AddListener(GameEvent.END, endGame);
+
+        Messenger<string>.AddListener(GameEvent.SPEED_POWERUP_ADD, addSpeedPowerUp);
+        Messenger<string>.AddListener(GameEvent.RELOAD_POWERUP_ADD, increaseReloadSpeed);
+        Messenger.AddListener(GameEvent.END, removeListeners);
+
     }
 
     // Update is called once per frame
@@ -109,6 +128,20 @@ public class PlayerInput : MonoBehaviour
             movement = transform.TransformDirection(movement);
             _rigidbody.velocity = movement;
         }
+
+        if (Time.time > speedPULastTime + speedPUTime)
+        {
+            Messenger<string, float>.Broadcast(GameEvent.SPEED_POWERUP_REMOVE, gameObject.tag, timeFlickingPU);
+            Invoke("returnDefaultSpeed", timeFlickingPU);
+            speedPULastTime = float.MaxValue;
+        }
+
+        if (Time.time > reloadPULastTime + reloadPUTime)
+        {
+            Messenger<string, float>.Broadcast(GameEvent.RELOAD_POWERUP_REMOVE, gameObject.tag, timeFlickingPU);
+            Invoke("returnDefaultReloadSpeed", timeFlickingPU);
+            reloadPULastTime = float.MaxValue;
+        }
     }
 
     void endGame()
@@ -129,5 +162,56 @@ public class PlayerInput : MonoBehaviour
     public void setBeingHit(bool b) { this.crabBeingHit = b; }
 
     public void finishBeingHit() { this.crabBeingHit = false; }
+
+    private void setSpeed(float speed)
+    {
+        this.speed = speed;
+    }
+
+    private void addSpeedPowerUp(string crab)
+    {
+        if (gameObject.CompareTag(crab))
+        {
+            if (this.speed == this.defSpeed)
+                setSpeed(this.speed * this.speedPUCoef);
+
+            speedPULastTime = Time.time;
+        }
+    }
+    private void returnDefaultSpeed()
+    {
+        if (Time.time <= speedPULastTime)
+            this.speed = defSpeed;
+    }
+
+    private void increaseReloadSpeed(string crab)
+    {
+        if (gameObject.CompareTag(crab))
+        {
+            if (this.ch_acc == ch_acc_default)
+                ch_acc *= reloadPUCoef;
+
+            reloadPULastTime = Time.time;
+        }
+    }
+
+    private void returnDefaultReloadSpeed()
+    {
+        if (Time.time <= reloadPULastTime)
+            ch_acc = ch_acc_default;
+    }
+
+    private void removeListeners()
+    {
+        Messenger<string>.RemoveListener(GameEvent.SPEED_POWERUP_ADD, addSpeedPowerUp);
+        Messenger<string>.RemoveListener(GameEvent.RELOAD_POWERUP_ADD, increaseReloadSpeed);
+        Messenger.RemoveListener(GameEvent.END, removeListeners);
+    }
+
+    public float getTimeFlickingPU()
+    {
+        return timeFlickingPU;
+    }
+
 }
 

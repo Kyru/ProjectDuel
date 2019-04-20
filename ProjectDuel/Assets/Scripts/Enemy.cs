@@ -15,20 +15,28 @@ public class Enemy : MonoBehaviour
         }
         else if (other.gameObject.tag == "CrabBlue")
         {
+            bool haveShield = other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU();
             other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
-            other.gameObject.GetComponent<Animator>().SetTrigger("CrabHit");
-            other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
-            Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+            if (!haveShield)
+            {
+                other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
+                Debug.Log("Me queda de vida: " + other.gameObject.GetComponent<PlayerCharacter>().get_health());
+                Messenger<int>.Broadcast(GameEvent.BLUE_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+            }
             this.gameObject.GetComponent<Animator>().SetTrigger("enemyHit");
             //this.gameObject.GetComponent<Collider>().enabled = false;
             //Destroy(this.gameObject);
         }
         else if (other.gameObject.tag == "CrabYellow")
         {
+            bool haveShield = other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU();
             other.gameObject.GetComponent<PlayerCharacter>().Hurt(damage);
-            other.gameObject.GetComponent<Animator>().SetTrigger("CrabHit");
-            other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
-            Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+            if (!haveShield)
+            {
+                other.gameObject.GetComponent<PlayerInput>().setBeingHit(true);
+                Debug.Log("Me queda de vida: " + other.gameObject.GetComponent<PlayerCharacter>().get_health());
+                Messenger<int>.Broadcast(GameEvent.YELLOW_HURT, other.gameObject.GetComponent<PlayerCharacter>().get_health());
+            }
             this.gameObject.GetComponent<Animator>().SetTrigger("enemyHit");
             //this.gameObject.GetComponent<Collider>().enabled = false;
             //Destroy(this.gameObject);
