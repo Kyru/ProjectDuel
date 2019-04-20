@@ -16,9 +16,12 @@ public class Obstacle_Generator : MonoBehaviour
     [SerializeField] private float randomSumRest;
     [SerializeField] private GameObject rightChest;
     [SerializeField] private GameObject leftChest;
+    [SerializeField] private float timeOutPowerUp;
 
+    private float timer;
     private int[] numObjRow;
     public GameObject[] obstacles;
+    public GameObject[] powerUps;
     private float difX;
     private float difZ;
     private Vector3[,] posObstacles;
@@ -40,6 +43,7 @@ public class Obstacle_Generator : MonoBehaviour
         Messenger<int, int>.AddListener(GameEvent.ROW_COL_OC, changeMatBool);
         Messenger.AddListener(GameEvent.END, deleteListener);
         Messenger.AddListener(GameEvent.SUDDEN_DEATH, suddenDeath);
+        Messenger<int, int>.AddListener(GameEvent.ROW_COL_PU, freeMatrix);
 
         numObjects = 0;
         //maxObjects=numCols*numRows;
@@ -86,7 +90,7 @@ public class Obstacle_Generator : MonoBehaviour
 
     void Update()
     {
-
+        timer += Time.deltaTime;
     }
 
     void instantiateObstacles()
@@ -112,100 +116,129 @@ public class Obstacle_Generator : MonoBehaviour
             half = false;
         }
 
-        while (i < 2000)
+        if (timer >= timeOutPowerUp)
         {
-            if (half == true)
+
+            for (int k = 0; k < numRows; k++)
             {
-                ranRow = Random.Range(0, numRows);
-                ranCol = Random.Range(0, Mathf.RoundToInt(numCols / 2));
+                if (numObjRow[k] <= 1)
+                {    
+                    
+                    ranCol = Random.Range(Mathf.RoundToInt(numCols / 2) - 1, Mathf.RoundToInt(numCols / 2) + 1);
+                    while(occupiedPos[k, ranCol])
+                    {
+                        ranCol = Random.Range(Mathf.RoundToInt(numCols / 2) - 1, Mathf.RoundToInt(numCols / 2) + 1);
+                    }
+                    occupiedPos[k, ranCol] = true;
+                    numObjRow[k] += 1;
+                    auxV = posObstacles[k, ranCol];
+                    auxV.y = -59.7f;
+                    ranObject = Random.Range(0, powerUps.Length-1);
+                    instancia = Instantiate<GameObject>(powerUps[ranObject], auxV, powerUps[ranObject].transform.rotation);
+                    instancia.GetComponent<PowerUp>().setRow(k);
+                    instancia.GetComponent<PowerUp>().setCol(ranCol);
+                    timer = 0f;
+                    numObjects += 1;
+                    break;
+                }
             }
-            else if (half == false)
+        }
+        else
+        {
+            while (i < 2000)
             {
-                ranRow = Random.Range(0, numRows);
-                ranCol = Random.Range(Mathf.RoundToInt(numCols / 2), numCols);
+                if (half == true)
+                {
+                    ranRow = Random.Range(0, numRows);
+                    ranCol = Random.Range(0, Mathf.RoundToInt(numCols / 2));
+                }
+                else if (half == false)
+                {
+                    ranRow = Random.Range(0, numRows);
+                    ranCol = Random.Range(Mathf.RoundToInt(numCols / 2), numCols);
+                }
+
+
+                if (!occupiedPos[ranRow, ranCol] && numObjRow[ranRow] <= 1)
+                {
+                    numObjRow[ranRow] += 1;
+                    occupiedPos[ranRow, ranCol] = true;
+                    break;
+                }
+                i++;
             }
 
-
-            if (!occupiedPos[ranRow, ranCol] && numObjRow[ranRow] <= 1)
+            if (ranCol < Mathf.RoundToInt(numCols / 2))
             {
-                numObjRow[ranRow] += 1;
-                occupiedPos[ranRow, ranCol] = true;
-                break;
+                numObjHR++;
             }
-            i++;
-        }
+            else if (ranCol >= Mathf.RoundToInt(numCols / 2))
+            {
+                numObjHL++;
+            }
 
-        if (ranCol < Mathf.RoundToInt(numCols / 2))
-        {
-            numObjHR++;
-        }
-        else if (ranCol >= Mathf.RoundToInt(numCols / 2))
-        {
-            numObjHL++;
-        }
-
-        // Si no se inicializa la variable a algún valor fuera de un if tira error
-        ranObject = 0;
-
-        // Simular probabilidad
-        ranNum = Random.Range(0, 100);
-
-        // Aqui con ifs se decide la probabilidad de cada objet
-        auxV = posObstacles[ranRow, ranCol];
-
-        if (ranNum >= 70)//Spinner
-        {
-            ranObject = 1;
-            auxV.y = -61.38f;
-        }
-        else if (ranNum < 40)//Barril
-        {
+            // Si no se inicializa la variable a algún valor fuera de un if tira error
             ranObject = 0;
-            auxV.y = -59.864f;
-        }
-        else if (ranNum >= 40 && ranNum < 70)//Redirectioner
-        {
-            ranObject = 2;
-            auxV.y = -60f;
-        }
 
-        if (i != 2000)
-        {
-            ranDifX = Random.Range(0f, randomSumRest);
-            sumrest = Random.Range(0, 2);
-            if (sumrest == 1) { auxV.x += ranDifX; }
-            else { auxV.x -= ranDifX; }
+            // Simular probabilidad
+            ranNum = Random.Range(0, 100);
 
-            ranDifZ = Random.Range(0f, randomSumRest);
-            sumrest = Random.Range(0, 2);
-            if (sumrest == 1) { auxV.z += ranDifZ; }
-            else { auxV.z -= ranDifZ; }
+            // Aqui con ifs se decide la probabilidad de cada objet
+            auxV = posObstacles[ranRow, ranCol];
 
-            if (ranCol != -1)
+            if (ranNum >= 70)//Spinner
             {
-
-                instancia = Instantiate<GameObject>(obstacles[ranObject], auxV, obstacles[ranObject].transform.rotation);
-
-                if (ranNum < 40)
-                {
-                    instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setRow(ranRow);
-                    instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setCol(ranCol);
-                }
-                else if (ranNum >= 70)
-                {
-                    instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setRow(ranRow);
-                    instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setCol(ranCol);
-                }
-                else if (ranNum >= 40 && ranNum < 70)
-                {
-                    instancia.GetComponent<BulletRedirectioner>().setRow(ranRow);
-                    instancia.GetComponent<BulletRedirectioner>().setCol(ranCol);
-                }
-                numObjects += 1;
+                ranObject = 1;
+                auxV.y = -61.38f;
+            }
+            else if (ranNum < 40)//Barril
+            {
+                ranObject = 0;
+                auxV.y = -59.864f;
+            }
+            else if (ranNum >= 40 && ranNum < 70)//Redirectioner
+            {
+                ranObject = 2;
+                auxV.y = -60f;
             }
 
-        }
+            if (i != 2000)
+            {
+                ranDifX = Random.Range(0f, randomSumRest);
+                sumrest = Random.Range(0, 2);
+                if (sumrest == 1) { auxV.x += ranDifX; }
+                else { auxV.x -= ranDifX; }
 
+                ranDifZ = Random.Range(0f, randomSumRest);
+                sumrest = Random.Range(0, 2);
+                if (sumrest == 1) { auxV.z += ranDifZ; }
+                else { auxV.z -= ranDifZ; }
+
+                if (ranCol != -1)
+                {
+
+                    instancia = Instantiate<GameObject>(obstacles[ranObject], auxV, obstacles[ranObject].transform.rotation);
+
+                    if (ranNum < 40)
+                    {
+                        instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setRow(ranRow);
+                        instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setCol(ranCol);
+                    }
+                    else if (ranNum >= 70)
+                    {
+                        instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setRow(ranRow);
+                        instancia.transform.GetChild(0).gameObject.GetComponent<BulletSpinner>().setCol(ranCol);
+                    }
+                    else if (ranNum >= 40 && ranNum < 70)
+                    {
+                        instancia.GetComponent<BulletRedirectioner>().setRow(ranRow);
+                        instancia.GetComponent<BulletRedirectioner>().setCol(ranCol);
+                    }
+                    numObjects += 1;
+                }
+
+            }
+        }
 
     }
 
@@ -291,7 +324,7 @@ public class Obstacle_Generator : MonoBehaviour
     void suddenDeath()
     {
         isSuddenDeath = true;
-        spawnTimeSuddenDeath = 0.1f;
+        spawnTimeSuddenDeath = 1f;
     }
 
     IEnumerator waitInstance()
@@ -317,5 +350,14 @@ public class Obstacle_Generator : MonoBehaviour
         Messenger<int, int>.RemoveListener(GameEvent.ROW_COL_OC, changeMatBool);
         Messenger.RemoveListener(GameEvent.END, deleteListener);
         Messenger.RemoveListener(GameEvent.SUDDEN_DEATH, suddenDeath);
+        Messenger<int, int>.RemoveListener(GameEvent.ROW_COL_PU, freeMatrix);
+    }
+
+    private void freeMatrix(int row, int col)
+    {
+        occupiedPos[row, col] = false;
+        numObjects -= 1;
+        numObjRow[row] -= 1;
+        StartCoroutine(waitInstance());
     }
 }

@@ -74,20 +74,16 @@ public class ShootBall : MonoBehaviour
                         break;
                     case "SpeedPowerUp":
                         Messenger<string>.Broadcast(GameEvent.SPEED_POWERUP_ADD, CrabType.CRAB_YELLOW);
-                        Destroy(other.gameObject);
                         break;
                     case "ExtraBallPowerUp":
                         Debug.Log("One extra ball for blue");
                         Messenger<string>.Broadcast(GameEvent.EXTRA_BALL_POWERUP_ADD, CrabType.CRAB_YELLOW);
-                        Destroy(other.gameObject);
                         break;
                     case "ReloadPowerUp":
                         Messenger<string>.Broadcast(GameEvent.RELOAD_POWERUP_ADD, CrabType.CRAB_YELLOW);
-                        Destroy(other.gameObject);
                         break;
                     case "ShieldPowerUp":
                         Messenger<string>.Broadcast(GameEvent.SHIELD_POWERUP_ADD, CrabType.CRAB_YELLOW);
-                        Destroy(other.gameObject);
                         break;
                 }
                 break;
@@ -123,20 +119,16 @@ public class ShootBall : MonoBehaviour
                         break;
                     case "SpeedPowerUp":
                         Messenger<string>.Broadcast(GameEvent.SPEED_POWERUP_ADD, CrabType.CRAB_BLUE);
-                        Destroy(other.gameObject);
                         break;
                     case "ExtraBallPowerUp":
                         Debug.Log("On tigger enter ShootBall");
                         Messenger<string>.Broadcast(GameEvent.EXTRA_BALL_POWERUP_ADD, CrabType.CRAB_BLUE);
-                        Destroy(other.gameObject);
                         break;
                     case "ReloadPowerUp":
                         Messenger<string>.Broadcast(GameEvent.RELOAD_POWERUP_ADD, CrabType.CRAB_BLUE);
-                        Destroy(other.gameObject);
                         break;
                     case "ShieldPowerUp":
                         Messenger<string>.Broadcast(GameEvent.SHIELD_POWERUP_ADD, CrabType.CRAB_BLUE);
-                        Destroy(other.gameObject);
                         break;
                 }
                 break;
