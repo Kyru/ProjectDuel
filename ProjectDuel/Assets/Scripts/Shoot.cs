@@ -55,6 +55,7 @@ public class Shoot : MonoBehaviour
                     this.gameObject.GetComponent<PlayerInput>().set_charge(0);
                 }
 
+                _audioSource.Play();
                 _animator.SetTrigger("CrabShoot");
                 _animator.SetBool("Reloading", false);
                 _ball = Instantiate(ballPrefab) as GameObject;
