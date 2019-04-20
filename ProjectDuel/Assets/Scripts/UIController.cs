@@ -23,8 +23,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private Image YellowBoots;
     [SerializeField] private Image BlueGloves;
     [SerializeField] private Image YellowGloves;
-    [SerializeField] private Image BlueArmor;
-    [SerializeField] private Image YellowArmor;
+    [SerializeField] private Image BlueShield;
+    [SerializeField] private Image YellowShield;
     [SerializeField] private Text BlueExtraBallsText;
     [SerializeField] private Text YellowExtraBallsText;
     //[SerializeField] private Obstacle_Generator generator;
@@ -36,8 +36,8 @@ public class UIController : MonoBehaviour
     private Animator YellowBootsAnimator;
     private Animator BlueGlovesAnimator;
     private Animator YellowGlovesAnimator;
-    private Animator BlueArmorAnimator;
-    private Animator YellowArmorAnimator;
+    private Animator BlueShieldAnimator;
+    private Animator YellowShieldAnimator;
 
 
     void Start()
@@ -63,8 +63,8 @@ public class UIController : MonoBehaviour
         YellowBootsAnimator = YellowBoots.GetComponent<Animator>();
         BlueGlovesAnimator = BlueGloves.GetComponent<Animator>();
         YellowGlovesAnimator = YellowGloves.GetComponent<Animator>();
-        BlueArmorAnimator = BlueArmor.GetComponent<Animator>();
-        YellowArmorAnimator = YellowArmor.GetComponent<Animator>();
+        BlueShieldAnimator = BlueShield.GetComponent<Animator>();
+        YellowShieldAnimator = YellowShield.GetComponent<Animator>();
 
         blue_hearts_list = new List<GameObject>();
         foreach (Transform child in blue_hearts.transform)
@@ -203,11 +203,11 @@ public class UIController : MonoBehaviour
     {
         if (crab == CrabType.CRAB_BLUE)
         {
-            BlueArmorAnimator.SetBool("Enabled", true);
+            BlueShieldAnimator.SetBool("Enabled", true);
         }
         else if (crab == CrabType.CRAB_YELLOW)
         {
-            YellowArmorAnimator.SetBool("Enabled", true);
+            YellowShieldAnimator.SetBool("Enabled", true);
         }
     }
 
@@ -215,11 +215,11 @@ public class UIController : MonoBehaviour
     {
         if (crab == CrabType.CRAB_BLUE)
         {
-            StartCoroutine(FlickUIPowerUp(BlueArmorAnimator, timeFlicking));
+            StartCoroutine(FlickUIPowerUp(BlueShieldAnimator, timeFlicking));
         }
         else if (crab == CrabType.CRAB_YELLOW)
         {
-            StartCoroutine(FlickUIPowerUp(YellowArmorAnimator, timeFlicking));
+            StartCoroutine(FlickUIPowerUp(YellowShieldAnimator, timeFlicking));
         }
     }
 
@@ -227,11 +227,11 @@ public class UIController : MonoBehaviour
     {
         if (crab == CrabType.CRAB_BLUE)
         {
-            BlueArmorAnimator.SetBool("Enabled", false);
-            BlueArmorAnimator.SetBool("Flick", false);
+            BlueShieldAnimator.SetBool("Enabled", false);
+            BlueShieldAnimator.SetBool("Flick", false);
         } else if (crab == CrabType.CRAB_YELLOW) {
-            YellowArmorAnimator.SetBool("Enabled", false);
-            YellowArmorAnimator.SetBool("Flick", false);
+            YellowShieldAnimator.SetBool("Enabled", false);
+            YellowShieldAnimator.SetBool("Flick", false);
         }
     }
 
