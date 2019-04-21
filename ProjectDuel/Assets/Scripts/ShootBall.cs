@@ -161,19 +161,21 @@ public class ShootBall : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "wall" || collision.gameObject.tag == "BulletRedirectioner")
+        switch (collision.gameObject.tag)
         {
-            Debug.Log("Llego a entrar en una colisión");
-            worldDirection = Vector3.Reflect(worldDirection, collision.contacts[0].normal);
-            worldDirection.y = 0.0f;
-        }
-        if (collision.gameObject.tag == "BulletDestroyer")
-        {
-            Destroy(this.gameObject);
-        }
-        if (collision.gameObject.tag == "BulletRedirectioner")
-        {
-            can_hit = true;
+            case "wall":
+                worldDirection = Vector3.Reflect(worldDirection, collision.contacts[0].normal);
+                worldDirection.y = 0.0f;
+                break;
+            case "BulletRedirectioner":
+                worldDirection = Vector3.Reflect(worldDirection, collision.contacts[0].normal);
+                worldDirection.y = 0.0f;
+                can_hit = true;
+                Destroy(collision.gameObject);
+                break;
+            case "BulletDestroyer":
+                Destroy(this.gameObject);
+                break;
         }
     }
 }
