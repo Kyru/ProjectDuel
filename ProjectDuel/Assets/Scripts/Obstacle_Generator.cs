@@ -132,11 +132,11 @@ public class Obstacle_Generator : MonoBehaviour
                     occupiedPos[k, ranCol] = true;
                     numObjRow[k] += 1;
                     auxV = posObstacles[k, ranCol];
-                    auxV.y = -59.7f;
-                    ranObject = Random.Range(0, powerUps.Length-1);
+                    auxV.y = -59.5f;
+                    ranObject = Random.Range(0, powerUps.Length);
                     instancia = Instantiate<GameObject>(powerUps[ranObject], auxV, powerUps[ranObject].transform.rotation);
-                    instancia.GetComponent<PowerUp>().setRow(k);
-                    instancia.GetComponent<PowerUp>().setCol(ranCol);
+                    instancia.transform.GetChild(0).GetComponent<PowerUp>().setRow(k);
+                    instancia.transform.GetChild(0).GetComponent<PowerUp>().setCol(ranCol);
                     timer = 0f;
                     numObjects += 1;
                     break;
