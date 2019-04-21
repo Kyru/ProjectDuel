@@ -6,11 +6,13 @@ public class Enemy : MonoBehaviour
 {
 
     public int damage = 1;
+    [SerializeField] private AudioClip enemySound;
+    [SerializeField] private AudioSource enemyAudioSource;
 
     public void OnTriggerEnter(Collider other)
     {
         bool haveShield;
-        switch(other.gameObject.tag)
+        switch (other.gameObject.tag)
         {
             case "BulletDestroyer":
                 Destroy(this.gameObject);
@@ -45,6 +47,7 @@ public class Enemy : MonoBehaviour
             case "ShootBlue":
             case "AcidBullet":
                 Destroy(other.gameObject);
+                enemyAudioSource.PlayOneShot(enemySound);
                 this.gameObject.GetComponent<Animator>().SetTrigger("enemyHit");
                 StartCoroutine("EnemyDeath");
                 break;
