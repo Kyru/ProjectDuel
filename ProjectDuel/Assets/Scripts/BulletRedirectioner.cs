@@ -16,8 +16,8 @@ public class BulletRedirectioner : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         isTriggered = true;
-        // Destroy(this.gameObject);
         Messenger<int,int>.Broadcast(GameEvent.ROW_COL_OC,row,col);
+        Destroy(this.gameObject);
     }
     public void OnTriggerExit(Collider other)
     {

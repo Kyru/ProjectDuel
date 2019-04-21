@@ -13,8 +13,7 @@ public class Enemy : MonoBehaviour
         switch(other.gameObject.tag)
         {
             case "BulletDestroyer":
-            case "BulletRedirectioner":
-                Destroy(other.gameObject);
+                Destroy(this.gameObject);
                 break;
             case "CrabBlue":
                 haveShield = other.gameObject.GetComponent<PlayerCharacter>().haveShieldPU();
