@@ -110,6 +110,7 @@ MonoBehaviour:
   damage: 1
   worldDirection: {x: 0, y: 0, z: 0}
   movement: {x: 0, y: 0, z: 0}
+  yellowPlantSound: {fileID: 8300000, guid: c25962c14c2164143ac72d337e04c282, type: 3}
 --- !u!54 &8770079516517688882
 Rigidbody:
   m_ObjectHideFlags: 0

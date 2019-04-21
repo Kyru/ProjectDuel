@@ -31,7 +31,7 @@ public class ShootBall : MonoBehaviour
             can_hit=true;
         }
 
-        if (other.gameObject.tag == "BulletDestroyer")
+        if (other.gameObject.tag == "BulletDestroyer" || other.gameObject.tag == "BackChest")
         {
             Destroy(gameObject);
         }
@@ -159,6 +159,7 @@ public class ShootBall : MonoBehaviour
                 break;
         }
     }
+
     void OnCollisionEnter(Collision collision)
     {
         switch (collision.gameObject.tag)
@@ -171,7 +172,7 @@ public class ShootBall : MonoBehaviour
                 worldDirection = Vector3.Reflect(worldDirection, collision.contacts[0].normal);
                 worldDirection.y = 0.0f;
                 can_hit = true;
-                Destroy(collision.gameObject);
+                //Destroy(collision.gameObject);
                 break;
             case "BulletDestroyer":
                 Destroy(this.gameObject);

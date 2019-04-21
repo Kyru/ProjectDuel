@@ -7,6 +7,8 @@ public class BulletDivider : MonoBehaviour
     [SerializeField] private GameObject shootBlue;
     [SerializeField] private GameObject shootYellow;
     [SerializeField] private GameObject acidBullet;
+    [SerializeField] private AudioClip barrelSound;
+    [SerializeField] private AudioSource barrelSource;
     private bool isTriggered = false;
     private int row,col;
 
@@ -29,6 +31,7 @@ public class BulletDivider : MonoBehaviour
                     this.transform.rotation, this.gameObject.transform.parent.transform);
                 Instantiate(acidBullet, this.gameObject.transform.position + (Vector3.right * 0.5f),
                                     this.gameObject.transform.parent.transform.rotation, this.gameObject.transform.parent.transform);
+                barrelSource.PlayOneShot(barrelSound);
 
                 // Este codigo se utiliza, si se quiere usar el shootYellow prefab
                 /*
@@ -45,6 +48,7 @@ public class BulletDivider : MonoBehaviour
                     Quaternion.Inverse(this.transform.rotation), this.gameObject.transform.parent.transform);
                 Instantiate(acidBullet, this.gameObject.transform.position + (Vector3.left * 0.5f),
                     Quaternion.Inverse(this.gameObject.transform.parent.transform.rotation), this.gameObject.transform.parent.transform);
+                barrelSource.PlayOneShot(barrelSound);
 
                 // Este codigo se utiliza, si se quiere usar el shootBlue prefab
                 /*
@@ -73,6 +77,7 @@ public class BulletDivider : MonoBehaviour
                     Instantiate(acidBullet, this.gameObject.transform.position + (Vector3.left * 0.5f),
                         Quaternion.Inverse(this.gameObject.transform.parent.transform.rotation), this.gameObject.transform.parent.transform);
                 }
+                barrelSource.PlayOneShot(barrelSound);
             }
             Messenger<int, int>.Broadcast(GameEvent.ROW_COL_OC, row, col);
         }
