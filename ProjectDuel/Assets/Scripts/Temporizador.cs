@@ -9,6 +9,7 @@ public class Temporizador : MonoBehaviour
 
     private int blueHealth;
     private int yellowHealth;
+    private bool fiveSecondsLeft;
 
     public float tiempo;
 
@@ -16,6 +17,7 @@ public class Temporizador : MonoBehaviour
     {
         blueHealth = blueCrab.GetComponent<PlayerCharacter>().get_health();
         yellowHealth = yellowCrab.GetComponent<PlayerCharacter>().get_health();
+        fiveSecondsLeft = false;
     }
 
     void LateUpdate()
@@ -29,6 +31,10 @@ public class Temporizador : MonoBehaviour
 
             Messenger<int>.Broadcast(GameEvent.TIME, Mathf.CeilToInt(tiempo));
 
+            if (!fiveSecondsLeft && tiempo <= 5)
+            {
+                Messenger.Broadcast(GameEvent.FIVE_SECONDS_LEFT);
+            }
 
             if (tiempo <= 0)
             {

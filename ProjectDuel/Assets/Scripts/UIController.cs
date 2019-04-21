@@ -57,6 +57,7 @@ public class UIController : MonoBehaviour
         Messenger<string>.AddListener(GameEvent.SHIELD_POWERUP_REMOVE_INSTANT, RemoveShieldPUInstant);
         Messenger<string, int>.AddListener(GameEvent.EXTRA_BALL_POWERUP_CHANGE, ExtraBallPU);
         Messenger<int>.AddListener(GameEvent.TIME, time_set);
+        Messenger.AddListener(GameEvent.FIVE_SECONDS_LEFT, textAnimation);
         Messenger.AddListener(GameEvent.SUDDEN_DEATH, sudden_death);
 
         BlueBootsAnimator = BlueBoots.GetComponent<Animator>();
@@ -118,8 +119,14 @@ public class UIController : MonoBehaviour
         }
     }
 
+    private void textAnimation()
+    {
+        time_text.GetComponent<Animator>().SetBool("FiveSecondsLeft", true);
+    }
+
     public void sudden_death()
     {
+        time_text.GetComponent<Animator>().SetBool("FiveSecondsLeft", false);
         Blue_PBar.color = Color.red;
         Yellow_PBar.color = Color.red;
         Yellow_BarBack.color = Color.red;
@@ -148,6 +155,7 @@ public class UIController : MonoBehaviour
         Messenger<string>.RemoveListener(GameEvent.SHIELD_POWERUP_REMOVE_INSTANT, RemoveShieldPUInstant);
         Messenger<string, int>.RemoveListener(GameEvent.EXTRA_BALL_POWERUP_CHANGE, ExtraBallPU);
         Messenger<int>.RemoveListener(GameEvent.TIME, time_set);
+        Messenger.AddListener(GameEvent.SUDDEN_DEATH, sudden_death);
         Messenger.RemoveListener(GameEvent.SUDDEN_DEATH, sudden_death);
         //Messenger<int, int>.RemoveListener(GameEvent.ROW_COL_OC, generator.changeMatBool);
         SceneManager.LoadScene("FirstScene");

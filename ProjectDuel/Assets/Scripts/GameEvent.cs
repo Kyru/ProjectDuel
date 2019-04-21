@@ -13,6 +13,7 @@ public class GameEvent : MonoBehaviour
    public const string OBSTACLE_BULLET = "OBSTACLE_BULLET";
    public const string ROW_COL_OC = "ROW_COL_OC";
    public const string TIME = "TIME";
+    public const string FIVE_SECONDS_LEFT = "FIVE_SECONDS_LEFT";
    public const string SUDDEN_DEATH = "SUDDEN_DEATH";
    public const string SPEED_POWERUP_ADD = "SPEED_POWERUP_ADD";
     public const string SPEED_POWERUP_REMOVE = "SPEED_POWERUP_REMOVE";
