@@ -333,6 +333,7 @@ public class UIController : MonoBehaviour
         Messenger<string>.RemoveListener(GameEvent.SHIELD_POWERUP_REMOVE_INSTANT, RemoveShieldPUInstant);
         Messenger<string, int>.RemoveListener(GameEvent.EXTRA_BALL_POWERUP_CHANGE, ExtraBallPU);
         Messenger<int>.RemoveListener(GameEvent.TIME, time_set);
+        Messenger.RemoveListener(GameEvent.FIVE_SECONDS_LEFT, textAnimation);
         Messenger.RemoveListener(GameEvent.SUDDEN_DEATH, sudden_death);
         Messenger.RemoveListener(GameEvent.END2, backToMenu);
     }
