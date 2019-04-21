@@ -23,7 +23,6 @@ public class PlayerCharacter : MonoBehaviour
         _animator = GetComponent<Animator>();
 
         Messenger<string>.AddListener(GameEvent.SHIELD_POWERUP_ADD, addShield);
-        Messenger.AddListener(GameEvent.END, removeListeners);
     }
 
     public void Hurt(int damage) 
@@ -85,10 +84,9 @@ public class PlayerCharacter : MonoBehaviour
         }
     }
 
-    private void removeListeners()
+    private void OnDestroy()
     {
         Messenger<string>.RemoveListener(GameEvent.SHIELD_POWERUP_ADD, addShield);
-        Messenger.RemoveListener(GameEvent.END, removeListeners);
     }
 
     public bool haveShieldPU() { return haveShield; }

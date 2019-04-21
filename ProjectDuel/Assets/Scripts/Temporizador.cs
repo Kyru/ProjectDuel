@@ -7,6 +7,7 @@ public class Temporizador : MonoBehaviour
     [SerializeField] private GameObject blueCrab;
     [SerializeField] private GameObject yellowCrab;
 
+    private bool blockUpdate = false;
     private int blueHealth;
     private int yellowHealth;
 
@@ -16,11 +17,13 @@ public class Temporizador : MonoBehaviour
     {
         blueHealth = blueCrab.GetComponent<PlayerCharacter>().get_health();
         yellowHealth = yellowCrab.GetComponent<PlayerCharacter>().get_health();
+        //Messenger.AddListener(GameEvent.END, noUpdate);
     }
 
     void LateUpdate()
     {
-        if (blueCrab != null && yellowCrab != null)
+        
+        if (blueCrab != null && yellowCrab != null && !blockUpdate)
         {
             blueHealth = blueCrab.GetComponent<PlayerCharacter>().get_health();
             yellowHealth = yellowCrab.GetComponent<PlayerCharacter>().get_health();
@@ -56,4 +59,9 @@ public class Temporizador : MonoBehaviour
             }
         }
     }
+    /*private void noUpdate()
+    {
+        blockUpdate = true;
+        Messenger.RemoveListener(GameEvent.END, noUpdate);
+    }*/
 }

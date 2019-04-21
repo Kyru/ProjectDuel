@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-
+    [SerializeField] private GameObject canvas;
     [SerializeField] private GameObject blue_hearts;
     [SerializeField] private GameObject yellow_hearts;
     [SerializeField] private GameObject Explosion;
@@ -27,18 +27,39 @@ public class UIController : MonoBehaviour
     [SerializeField] private Image YellowShield;
     [SerializeField] private Text BlueExtraBallsText;
     [SerializeField] private Text YellowExtraBallsText;
+    [SerializeField] private Button pauseButton;
+    [SerializeField] private Image pauseBackground;
     //[SerializeField] private Obstacle_Generator generator;
 
     private List<GameObject> blue_hearts_list;
     private List<GameObject> yellow_hearts_list;
 
+    private bool paused = false;
     private Animator BlueBootsAnimator;
     private Animator YellowBootsAnimator;
     private Animator BlueGlovesAnimator;
     private Animator YellowGlovesAnimator;
     private Animator BlueShieldAnimator;
     private Animator YellowShieldAnimator;
-
+    private Transform[] ts;
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && paused)
+        {
+            paused = false;
+            Time.timeScale = 1;
+            activateGameUI();
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Time.timeScale = 0;
+                paused = true;
+                activatePauseUI();
+            }
+        }
+    }
 
     void Start()
     {
@@ -58,6 +79,7 @@ public class UIController : MonoBehaviour
         Messenger<string, int>.AddListener(GameEvent.EXTRA_BALL_POWERUP_CHANGE, ExtraBallPU);
         Messenger<int>.AddListener(GameEvent.TIME, time_set);
         Messenger.AddListener(GameEvent.SUDDEN_DEATH, sudden_death);
+        Messenger.AddListener(GameEvent.END2, backToMenu);
 
         BlueBootsAnimator = BlueBoots.GetComponent<Animator>();
         YellowBootsAnimator = YellowBoots.GetComponent<Animator>();
@@ -132,24 +154,6 @@ public class UIController : MonoBehaviour
 
     public void restart()
     {
-        Messenger.Broadcast(GameEvent.END);
-        Messenger<int>.RemoveListener(GameEvent.BLUE_HURT, blue_remove_heart);
-        Messenger<int>.RemoveListener(GameEvent.YELLOW_HURT, yellow_remove_heart);
-        Messenger<double>.RemoveListener(GameEvent.BLUE_BAR, Blue_charge);
-        Messenger<double>.RemoveListener(GameEvent.YELLOW_BAR, Yellow_charge);
-        Messenger.RemoveListener(GameEvent.BLUE_DIES, Yellow_wins);
-        Messenger.RemoveListener(GameEvent.YELLOW_DIES, Blue_wins);
-        Messenger<string>.RemoveListener(GameEvent.SPEED_POWERUP_ADD, SpeedPU);
-        Messenger<string, float>.RemoveListener(GameEvent.SPEED_POWERUP_REMOVE, RemoveSpeedPU);
-        Messenger<string>.RemoveListener(GameEvent.RELOAD_POWERUP_ADD, ReloadPU);
-        Messenger<string, float>.RemoveListener(GameEvent.RELOAD_POWERUP_REMOVE, RemoveReloadPU);
-        Messenger<string>.RemoveListener(GameEvent.SHIELD_POWERUP_ADD, ShieldPU);
-        Messenger<string, float>.RemoveListener(GameEvent.SHIELD_POWERUP_REMOVE, RemoveShieldPU);
-        Messenger<string>.RemoveListener(GameEvent.SHIELD_POWERUP_REMOVE_INSTANT, RemoveShieldPUInstant);
-        Messenger<string, int>.RemoveListener(GameEvent.EXTRA_BALL_POWERUP_CHANGE, ExtraBallPU);
-        Messenger<int>.RemoveListener(GameEvent.TIME, time_set);
-        Messenger.RemoveListener(GameEvent.SUDDEN_DEATH, sudden_death);
-        //Messenger<int, int>.RemoveListener(GameEvent.ROW_COL_OC, generator.changeMatBool);
         SceneManager.LoadScene("FirstScene");
     }
 
@@ -158,7 +162,8 @@ public class UIController : MonoBehaviour
         if (crab == CrabType.CRAB_BLUE)
         {
             BlueBootsAnimator.SetBool("Enabled", true);
-        } else if (crab == CrabType.CRAB_YELLOW)
+        }
+        else if (crab == CrabType.CRAB_YELLOW)
         {
             YellowBootsAnimator.SetBool("Enabled", true);
         }
@@ -188,7 +193,8 @@ public class UIController : MonoBehaviour
         }
     }
 
-    private void RemoveReloadPU(string crab, float timeFlicking) {
+    private void RemoveReloadPU(string crab, float timeFlicking)
+    {
         if (crab == CrabType.CRAB_BLUE)
         {
             StartCoroutine(FlickUIPowerUp(BlueGlovesAnimator, timeFlicking));
@@ -229,7 +235,9 @@ public class UIController : MonoBehaviour
         {
             BlueShieldAnimator.SetBool("Enabled", false);
             BlueShieldAnimator.SetBool("Flick", false);
-        } else if (crab == CrabType.CRAB_YELLOW) {
+        }
+        else if (crab == CrabType.CRAB_YELLOW)
+        {
             YellowShieldAnimator.SetBool("Enabled", false);
             YellowShieldAnimator.SetBool("Flick", false);
         }
@@ -253,7 +261,8 @@ public class UIController : MonoBehaviour
         if (crab == CrabType.CRAB_BLUE)
         {
             BlueExtraBallsText.text = numberOfBalls.ToString();
-        } else if (crab == CrabType.CRAB_YELLOW)
+        }
+        else if (crab == CrabType.CRAB_YELLOW)
         {
             YellowExtraBallsText.text = numberOfBalls.ToString();
         }
@@ -271,5 +280,53 @@ public class UIController : MonoBehaviour
         }
     }
 
+    private void activateGameUI()
+    {
+        foreach (Transform t in ts)
+        {
+            t.gameObject.SetActive(true);
+        }
+        pauseButton.gameObject.SetActive(false);
+        pauseBackground.gameObject.SetActive(false);
+    }
 
+
+    private void activatePauseUI()
+    {
+        ts = canvas.GetComponentsInChildren<Transform>();
+        foreach (Transform t in ts)
+        {
+            t.gameObject.SetActive(false);
+        }
+        canvas.gameObject.SetActive(true);
+        pauseButton.gameObject.SetActive(true);
+        pauseBackground.gameObject.SetActive(true);
+    }
+
+    public void backToMenu()
+    {
+        
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MainMenuScene");
+    }
+    private void OnDestroy()
+    {
+        Messenger<int>.RemoveListener(GameEvent.BLUE_HURT, blue_remove_heart);
+        Messenger<int>.RemoveListener(GameEvent.YELLOW_HURT, yellow_remove_heart);
+        Messenger<double>.RemoveListener(GameEvent.BLUE_BAR, Blue_charge);
+        Messenger<double>.RemoveListener(GameEvent.YELLOW_BAR, Yellow_charge);
+        Messenger.RemoveListener(GameEvent.BLUE_DIES, Yellow_wins);
+        Messenger.RemoveListener(GameEvent.YELLOW_DIES, Blue_wins);
+        Messenger<string>.RemoveListener(GameEvent.SPEED_POWERUP_ADD, SpeedPU);
+        Messenger<string, float>.RemoveListener(GameEvent.SPEED_POWERUP_REMOVE, RemoveSpeedPU);
+        Messenger<string>.RemoveListener(GameEvent.RELOAD_POWERUP_ADD, ReloadPU);
+        Messenger<string, float>.RemoveListener(GameEvent.RELOAD_POWERUP_REMOVE, RemoveReloadPU);
+        Messenger<string>.RemoveListener(GameEvent.SHIELD_POWERUP_ADD, ShieldPU);
+        Messenger<string, float>.RemoveListener(GameEvent.SHIELD_POWERUP_REMOVE, RemoveShieldPU);
+        Messenger<string>.RemoveListener(GameEvent.SHIELD_POWERUP_REMOVE_INSTANT, RemoveShieldPUInstant);
+        Messenger<string, int>.RemoveListener(GameEvent.EXTRA_BALL_POWERUP_CHANGE, ExtraBallPU);
+        Messenger<int>.RemoveListener(GameEvent.TIME, time_set);
+        Messenger.RemoveListener(GameEvent.SUDDEN_DEATH, sudden_death);
+        Messenger.RemoveListener(GameEvent.END2, backToMenu);
+    }
 }

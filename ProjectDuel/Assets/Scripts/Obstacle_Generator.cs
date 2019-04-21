@@ -41,7 +41,6 @@ public class Obstacle_Generator : MonoBehaviour
     void Start()
     {
         Messenger<int, int>.AddListener(GameEvent.ROW_COL_OC, changeMatBool);
-        Messenger.AddListener(GameEvent.END, deleteListener);
         Messenger.AddListener(GameEvent.SUDDEN_DEATH, suddenDeath);
         Messenger<int, int>.AddListener(GameEvent.ROW_COL_PU, freeMatrix);
 
@@ -345,10 +344,9 @@ public class Obstacle_Generator : MonoBehaviour
         //inuse=false;
     }
 
-    private void deleteListener()
+    private void OnDestroy()
     {
         Messenger<int, int>.RemoveListener(GameEvent.ROW_COL_OC, changeMatBool);
-        Messenger.RemoveListener(GameEvent.END, deleteListener);
         Messenger.RemoveListener(GameEvent.SUDDEN_DEATH, suddenDeath);
         Messenger<int, int>.RemoveListener(GameEvent.ROW_COL_PU, freeMatrix);
     }
