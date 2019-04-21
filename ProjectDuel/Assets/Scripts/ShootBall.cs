@@ -171,5 +171,9 @@ public class ShootBall : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        if (collision.gameObject.tag == "BulletRedirectioner")
+        {
+            can_hit = true;
+        }
     }
 }
