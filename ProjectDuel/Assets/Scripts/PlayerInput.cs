@@ -35,6 +35,7 @@ public class PlayerInput : MonoBehaviour
     private AudioSource _audioSource;
     private float timeFlickingPU;
 
+
     // Use this for initialization
     void Start()
     {
@@ -62,7 +63,6 @@ public class PlayerInput : MonoBehaviour
 
         Messenger<string>.AddListener(GameEvent.SPEED_POWERUP_ADD, addSpeedPowerUp);
         Messenger<string>.AddListener(GameEvent.RELOAD_POWERUP_ADD, increaseReloadSpeed);
-        Messenger.AddListener(GameEvent.END, removeListeners);
 
     }
 
@@ -70,7 +70,7 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
 
-        if (!crabBeingHit)
+        if (!crabBeingHit && Time.timeScale != 0)
         {
             if (Input.GetKey(keyMovement1))
             {
@@ -145,8 +145,8 @@ public class PlayerInput : MonoBehaviour
 
     void sudden_death()
     {
-        auraParticleSystem.emissionRate = 20;
-        auraBottomParticleSystem.emissionRate = 10;
+        auraParticleSystem.emissionRate = 20f;
+        auraBottomParticleSystem.emissionRate = 10f;
     }
 
     public double get_charge() { return charge; }
@@ -195,12 +195,11 @@ public class PlayerInput : MonoBehaviour
             ch_acc = ch_acc_default;
     }
 
-    private void removeListeners()
+    private void OnDestroy()
     {
         Messenger<string>.RemoveListener(GameEvent.SPEED_POWERUP_ADD, addSpeedPowerUp);
         Messenger<string>.RemoveListener(GameEvent.RELOAD_POWERUP_ADD, increaseReloadSpeed);
         Messenger.RemoveListener(GameEvent.SUDDEN_DEATH, sudden_death);
-        Messenger.RemoveListener(GameEvent.END, removeListeners);
     }
 
     public float getTimeFlickingPU()

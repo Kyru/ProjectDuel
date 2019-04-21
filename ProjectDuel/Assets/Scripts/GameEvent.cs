@@ -26,5 +26,5 @@ public class GameEvent : MonoBehaviour
     public const string RELOAD_POWERUP_ADD = "RELOAD_POWER_UP_ADD";
     public const string RELOAD_POWERUP_REMOVE = "RELOAD_POWER_UP_REMOVE";
     public const string ROW_COL_PU = "ROW_COL_PU";
-    public const string END = "END";
+    public const string END2 = "END2";
 }

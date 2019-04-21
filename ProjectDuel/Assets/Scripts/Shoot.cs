@@ -31,60 +31,61 @@ public class Shoot : MonoBehaviour
         Messenger.AddListener(GameEvent.SUDDEN_DEATH, sudden_death);
 
         Messenger<string>.AddListener(GameEvent.EXTRA_BALL_POWERUP_ADD, addExtraBall);
-        Messenger.AddListener(GameEvent.END, removeListeners);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!is_sudden_death)
+        if (Time.timeScale != 0)
         {
-            if (Input.GetKeyDown(keyShoot)
-            && (this.gameObject.GetComponent<PlayerInput>().get_charge() == 1 || extraBalls > 0)
-            && !GetComponent<PlayerInput>().getBeingHit())
+            if (!is_sudden_death)
             {
-                if ((this.gameObject.GetComponent<PlayerInput>().get_charge() == 1 && extraBalls > 0)
-                    || this.gameObject.GetComponent<PlayerInput>().get_charge() != 1)
+                if (Input.GetKeyDown(keyShoot)
+                && (this.gameObject.GetComponent<PlayerInput>().get_charge() == 1 || extraBalls > 0)
+                && !GetComponent<PlayerInput>().getBeingHit())
                 {
-                    extraBalls--;
-                    Messenger<string, int>.Broadcast(GameEvent.EXTRA_BALL_POWERUP_CHANGE, gameObject.tag, extraBalls);
-                    Debug.Log("Acabo de gastar una bola extra, me quedan: " + extraBalls);
-                }
-                else
-                {
-                    this.gameObject.GetComponent<PlayerInput>().set_charge(0);
-                }
+                    if ((this.gameObject.GetComponent<PlayerInput>().get_charge() == 1 && extraBalls > 0)
+                        || this.gameObject.GetComponent<PlayerInput>().get_charge() != 1)
+                    {
+                        extraBalls--;
+                        Messenger<string, int>.Broadcast(GameEvent.EXTRA_BALL_POWERUP_CHANGE, gameObject.tag, extraBalls);
+                        Debug.Log("Acabo de gastar una bola extra, me quedan: " + extraBalls);
+                    }
+                    else
+                    {
+                        this.gameObject.GetComponent<PlayerInput>().set_charge(0);
+                    }
 
-                _audioSource.Play();
-                _animator.SetTrigger("CrabShoot");
-                _animator.SetBool("Reloading", false);
-                _ball = Instantiate(ballPrefab) as GameObject;
-                _ball.transform.position = transform.TransformPoint(Vector3.forward * 10f);
-                _ball.transform.rotation = transform.rotation;
-            }
-        } 
-        else
-        {
-            if (Input.GetKeyDown(keyShoot) && !GetComponent<PlayerInput>().getBeingHit())
-            {
-                if (canShoot)
-                {
                     _audioSource.Play();
                     _animator.SetTrigger("CrabShoot");
                     _animator.SetBool("Reloading", false);
                     _ball = Instantiate(ballPrefab) as GameObject;
                     _ball.transform.position = transform.TransformPoint(Vector3.forward * 10f);
                     _ball.transform.rotation = transform.rotation;
-                    StartCoroutine("limit_shoot");
                 }
             }
-        }
+            else
+            {
+                if (Input.GetKeyDown(keyShoot) && !GetComponent<PlayerInput>().getBeingHit())
+                {
+                    if (canShoot)
+                    {
+                        _audioSource.Play();
+                        _animator.SetTrigger("CrabShoot");
+                        _animator.SetBool("Reloading", false);
+                        _ball = Instantiate(ballPrefab) as GameObject;
+                        _ball.transform.position = transform.TransformPoint(Vector3.forward * 10f);
+                        _ball.transform.rotation = transform.rotation;
+                        StartCoroutine("limit_shoot");
+                    }
+                }
+            }
 
-        if (!canAddExtraBall && (Time.time > addBallTime + coolDownExtraBall))
-        {
-            canAddExtraBall = true;
+            if (!canAddExtraBall && (Time.time > addBallTime + coolDownExtraBall))
+            {
+                canAddExtraBall = true;
+            }
         }
-
     }
 
     private void addExtraBall(string crab)
@@ -98,10 +99,10 @@ public class Shoot : MonoBehaviour
         }
     }
 
-    private void removeListeners()
+    private void OnDestroy()
     {
+        Messenger.RemoveListener(GameEvent.SUDDEN_DEATH, sudden_death);
         Messenger<string>.RemoveListener(GameEvent.EXTRA_BALL_POWERUP_ADD, addExtraBall);
-        Messenger.RemoveListener(GameEvent.END, removeListeners);
     }
 
     IEnumerator limit_shoot()
