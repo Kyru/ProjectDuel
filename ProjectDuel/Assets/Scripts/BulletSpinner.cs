@@ -7,6 +7,9 @@ public class BulletSpinner : MonoBehaviour
     [SerializeField] private GameObject shootBlue;
     [SerializeField] private GameObject shootYellow;
     [SerializeField] private GameObject acidBullet;
+    [SerializeField] private AudioClip spinnerSound;
+    [SerializeField] private AudioSource spinnerSource;
+
     private bool isTriggered = false;
     private int row,col;
 
@@ -45,6 +48,7 @@ public class BulletSpinner : MonoBehaviour
                     randomRotation, this.gameObject.transform.parent.transform);
             }
         }
+        spinnerSource.PlayOneShot(spinnerSound);
         isTriggered = true;
         Destroy(this.gameObject);
         Messenger<int,int>.Broadcast(GameEvent.ROW_COL_OC,row,col);

@@ -11,6 +11,7 @@ public class ShootBall : MonoBehaviour
     public Vector3 worldDirection;
     public Vector3 movement;
     private bool can_hit = false;
+    [SerializeField] private AudioClip yellowPlantSound;
 
     void Start()
     {
@@ -165,6 +166,7 @@ public class ShootBall : MonoBehaviour
         switch (collision.gameObject.tag)
         {
             case "wall":
+                collision.gameObject.GetComponent<AudioSource>().PlayOneShot(yellowPlantSound);
                 worldDirection = Vector3.Reflect(worldDirection, collision.contacts[0].normal);
                 worldDirection.y = 0.0f;
                 break;

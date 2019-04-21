@@ -11,8 +11,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5556605, y: 0.72380036, z: 0.6608529}
-  m_Center: {x: 0.003355861, y: 0.002099991, z: 0.3304263}
+  m_Size: {x: 0.13955158, y: 0.72380036, z: 0.6608529}
+  m_Center: {x: -0.20469868, y: 0.0020999908, z: 0.3304263}
 --- !u!82 &3286817530344450079
 AudioSource:
   m_ObjectHideFlags: 0
@@ -135,8 +135,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3368869, y: 0.7079274, z: 0.6324804}
-  m_Center: {x: 0.4566853, y: 0.01352085, z: 0.3430293}
+  m_Size: {x: 0.452875, y: 0.7079274, z: 0.6324804}
+  m_Center: {x: 0.39869127, y: 0.013520837, z: 0.3430293}
 --- !u!1001 &5530532215119378645
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -154,7 +154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5c509bc9e3ce92e418aac359ebdf4281, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.7050848
+      value: 3.1726496
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5c509bc9e3ce92e418aac359ebdf4281, type: 3}
       propertyPath: m_LocalPosition.y
@@ -162,7 +162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5c509bc9e3ce92e418aac359ebdf4281, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.361678
+      value: 7.2667603
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5c509bc9e3ce92e418aac359ebdf4281, type: 3}
       propertyPath: m_LocalRotation.x

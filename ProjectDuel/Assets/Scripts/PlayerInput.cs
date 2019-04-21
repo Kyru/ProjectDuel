@@ -17,6 +17,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] GameObject Bubles;
     [SerializeField] GameObject Aura;
     [SerializeField] GameObject AuraBottom;
+    [SerializeField] private AudioClip bubblesReloadSound;
 
 
     private Rigidbody _rigidbody;
@@ -96,6 +97,7 @@ public class PlayerInput : MonoBehaviour
 
             if (Input.GetKey(keyReload))
             {
+                this.GetComponent<AudioSource>().Play();
                 _rigidbody.velocity = Vector3.zero;
                 _animator.SetFloat("CrabSpeed", 0);
                 _animator.SetBool("Reloading", true);
@@ -108,6 +110,7 @@ public class PlayerInput : MonoBehaviour
             }
             else if (charge < ch_max)
             {
+                this.GetComponent<AudioSource>().Stop();
                 _animator.SetBool("Reloading", false);
                 bublesParticleSystem.emissionRate = 0;
                 if (charge >= ch_acc * Time.deltaTime) { charge -= ch_acc * Time.deltaTime; }
@@ -117,6 +120,7 @@ public class PlayerInput : MonoBehaviour
             }
             else
             {
+                this.GetComponent<AudioSource>().Stop();
                 _animator.SetBool("Reloading", false);
                 bublesParticleSystem.emissionRate = 0;
             }

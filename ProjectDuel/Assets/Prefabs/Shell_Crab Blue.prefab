@@ -696,10 +696,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   gravity: -9.8
+  speedPUCoef: 1.25
+  speedPUTime: 10
+  reloadPUCoef: 1.25
+  reloadPUTime: 10
   keyMovement1: 115
   keyMovement2: 119
   keyReload: 0
   Bubles: {fileID: 0}
+  Aura: {fileID: 0}
+  AuraBottom: {fileID: 0}
+  bubblesReloadSound: {fileID: 0}
 --- !u!114 &1427873603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,7 +748,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 577f30036e998d84e91d433594934af8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

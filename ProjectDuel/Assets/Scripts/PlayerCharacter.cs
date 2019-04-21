@@ -9,6 +9,7 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private string id;
     [SerializeField] private GameObject enemy_scrub;
     [SerializeField] private float shieldPUTime = 10f;
+    [SerializeField] private AudioClip crabSound;
 
     private bool haveShield;
     private float shieldPULastTime = 10f;
@@ -27,6 +28,7 @@ public class PlayerCharacter : MonoBehaviour
 
     public void Hurt(int damage) 
     {
+        this.GetComponent<AudioSource>().PlayOneShot(crabSound);
         if (haveShield)
         {
             haveShield = false;

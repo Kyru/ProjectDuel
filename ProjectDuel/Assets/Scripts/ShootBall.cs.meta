@@ -3,7 +3,8 @@ guid: 165a55ba0edfa2a489f2574d4f0fff7c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - yellowPlantSound: {fileID: 8300000, guid: 471ece2961801ce40b753a04c7584cf6, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
