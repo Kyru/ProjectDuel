@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.36647394, g: 0.4590907, b: 0.5701466, a: 1}
+  m_IndirectSpecularColor: {r: 0.3664743, g: 0.459091, b: 0.57014734, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1669,7 +1669,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 577f30036e998d84e91d433594934af8, type: 3}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 327666a7a3000904fbd42e5904cb169a, type: 3}
 --- !u!1 &750016783
@@ -2372,6 +2372,10 @@ PrefabInstance:
       propertyPath: bubblesReloadSound
       value: 
       objectReference: {fileID: 8300000, guid: 81272b4c8ab2cf44e9ea2b151ec4e874, type: 3}
+    - target: {fileID: 1427873602, guid: 327666a7a3000904fbd42e5904cb169a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1427873603, guid: 327666a7a3000904fbd42e5904cb169a, type: 3}
       propertyPath: shootSound
       value: 
@@ -3632,11 +3636,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 577f30036e998d84e91d433594934af8, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 1474082535003232950, guid: 327666a7a3000904fbd42e5904cb169a,
         type: 3}
       propertyPath: Loop
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1474082535003232950, guid: 327666a7a3000904fbd42e5904cb169a,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1474082535003232950, guid: 327666a7a3000904fbd42e5904cb169a,
+        type: 3}
+      propertyPath: Priority
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 934305216771621233, guid: 327666a7a3000904fbd42e5904cb169a,
         type: 3}
@@ -3658,11 +3672,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1474082535003232950, guid: 327666a7a3000904fbd42e5904cb169a,
-        type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 577f30036e998d84e91d433594934af8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 327666a7a3000904fbd42e5904cb169a, type: 3}
 --- !u!114 &1268217957 stripped

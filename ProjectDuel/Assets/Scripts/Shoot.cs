@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
+    [SerializeField] private AudioClip shootSound;
     [SerializeField] private GameObject ballPrefab;
     private GameObject _ball;
     private Animator _animator;
@@ -56,7 +57,7 @@ public class Shoot : MonoBehaviour
                         this.gameObject.GetComponent<PlayerInput>().set_charge(0);
                     }
 
-                    _audioSource.Play();
+                    _audioSource.PlayOneShot(shootSound);
                     _animator.SetTrigger("CrabShoot");
                     _animator.SetBool("Reloading", false);
                     _ball = Instantiate(ballPrefab) as GameObject;
@@ -70,7 +71,7 @@ public class Shoot : MonoBehaviour
                 {
                     if (canShoot)
                     {
-                        _audioSource.Play();
+                        _audioSource.PlayOneShot(shootSound);
                         _animator.SetTrigger("CrabShoot");
                         _animator.SetBool("Reloading", false);
                         _ball = Instantiate(ballPrefab) as GameObject;

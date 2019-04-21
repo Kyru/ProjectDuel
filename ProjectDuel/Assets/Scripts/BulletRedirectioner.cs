@@ -34,6 +34,12 @@ public class BulletRedirectioner : MonoBehaviour
         Destroy(this.transform.GetChild(1).gameObject);
         
     }
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Enemy")
+        Destroy(this.transform.GetChild(1).gameObject);
+
+    }
     public void OnTriggerExit(Collider other)
     {
         //isTriggered = false;
