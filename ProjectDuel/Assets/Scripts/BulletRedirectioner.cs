@@ -37,7 +37,7 @@ public class BulletRedirectioner : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Enemy")
-        Destroy(this.transform.GetChild(1).gameObject);
+        Destroy(this.gameObject);
 
     }
     public void OnTriggerExit(Collider other)
