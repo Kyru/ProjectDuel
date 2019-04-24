@@ -17,7 +17,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] GameObject Bubles;
     [SerializeField] GameObject Aura;
     [SerializeField] GameObject AuraBottom;
-    [SerializeField] private AudioClip bubblesReloadSound;
+    [SerializeField] private AudioSource audioSourceBubbles;
 
 
     private Rigidbody _rigidbody;
@@ -33,14 +33,12 @@ public class PlayerInput : MonoBehaviour
     private ParticleSystem auraParticleSystem;
     private ParticleSystem auraBottomParticleSystem;
     private bool crabBeingHit;
-    private AudioSource _audioSource;
     private float timeFlickingPU;
 
 
     // Use this for initialization
     void Start()
     {
-        _audioSource = GetComponent<AudioSource>();
         defSpeed = speed;
         ch_acc_default = ch_acc;
         speedPULastTime = float.MaxValue;
@@ -97,7 +95,10 @@ public class PlayerInput : MonoBehaviour
 
             if (Input.GetKey(keyReload))
             {
-                this.GetComponent<AudioSource>().Play();
+                if (!audioSourceBubbles.isPlaying) {
+                    audioSourceBubbles.Play();
+                }
+               
                 _rigidbody.velocity = Vector3.zero;
                 _animator.SetFloat("CrabSpeed", 0);
                 _animator.SetBool("Reloading", true);
@@ -110,7 +111,7 @@ public class PlayerInput : MonoBehaviour
             }
             else if (charge < ch_max)
             {
-                this.GetComponent<AudioSource>().Stop();
+                audioSourceBubbles.Stop();
                 _animator.SetBool("Reloading", false);
                 bublesParticleSystem.emissionRate = 0;
                 if (charge >= ch_acc * Time.deltaTime) { charge -= ch_acc * Time.deltaTime; }
@@ -120,7 +121,7 @@ public class PlayerInput : MonoBehaviour
             }
             else
             {
-                this.GetComponent<AudioSource>().Stop();
+                audioSourceBubbles.Stop();
                 _animator.SetBool("Reloading", false);
                 bublesParticleSystem.emissionRate = 0;
             }
