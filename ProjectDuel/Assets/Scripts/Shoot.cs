@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
+    [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip shootSound;
     [SerializeField] private GameObject ballPrefab;
     private GameObject _ball;
     private Animator _animator;
     private int extraBalls;
     [SerializeField] private KeyCode keyShoot;
-    private AudioSource _audioSource;
     private bool is_sudden_death;
     private bool canShoot;
     private bool canAddExtraBall;
@@ -20,7 +20,6 @@ public class Shoot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _audioSource = GetComponent<AudioSource>();
         extraBalls = 0;
         _animator = GetComponent<Animator>();
 

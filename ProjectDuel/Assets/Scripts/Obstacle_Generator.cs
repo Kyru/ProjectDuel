@@ -217,7 +217,7 @@ public class Obstacle_Generator : MonoBehaviour
                 {
 
                     instancia = Instantiate<GameObject>(obstacles[ranObject], auxV, obstacles[ranObject].transform.rotation);
-
+                    instancia.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("volume", 0.5f);
                     if (ranNum < 40)
                     {
                         instancia.transform.GetChild(0).gameObject.GetComponent<BulletDivider>().setRow(ranRow);
